@@ -83,7 +83,7 @@ public abstract class AbstractBeanDefinitionParser implements BeanDefinitionPars
 				registerBeanDefinition(holder, parserContext.getRegistry());
 				if (shouldFireEvents()) {
 					//需要通知监听器则进行处理
-dd					BeanComponentDefinition componentDefinition = new BeanComponentDefinition(holder);
+					BeanComponentDefinition componentDefinition = new BeanComponentDefinition(holder);
 					postProcessComponentDefinition(componentDefinition);
 					parserContext.registerComponent(componentDefinition);
 				}
