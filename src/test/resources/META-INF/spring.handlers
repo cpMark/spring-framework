@@ -1,1 +1,3 @@
-http\://www.foo.com/schema/component=com.foo.ComponentNamespaceHandler
+#http\://www.foo.com/schema/component=com.foo.ComponentNamespaceHandler
+#命名空间和命名空间处理器的映射关系配置
+http\://www.fsunlight.com/schema/user=com.example.test.ch4.MyNamespaceHandler

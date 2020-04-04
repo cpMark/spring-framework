@@ -390,7 +390,9 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 			throws BeanDefinitionStoreException {
 
 		try {
+			//从资源信息中加载出文档对象
 			Document doc = doLoadDocument(inputSource, resource);
+			//注册文档对象，并返回本次注册的bean definitions的总数
 			int count = registerBeanDefinitions(doc, resource);
 			if (logger.isDebugEnabled()) {
 				logger.debug("Loaded " + count + " bean definitions from " + resource);
@@ -432,6 +434,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	 * @see DocumentLoader#loadDocument
 	 */
 	protected Document doLoadDocument(InputSource inputSource, Resource resource) throws Exception {
+		//documentLoader是一个DefaultDocumentLoader实例
 		return this.documentLoader.loadDocument(inputSource, getEntityResolver(), this.errorHandler,
 				getValidationModeForResource(resource), isNamespaceAware());
 	}
@@ -446,9 +449,12 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	 */
 	protected int getValidationModeForResource(Resource resource) {
 		int validationModeToUse = getValidationMode();
+		//如果手动指定了验证模式则使用指定的验证模式
 		if (validationModeToUse != VALIDATION_AUTO) {
 			return validationModeToUse;
 		}
+
+		//如果未指定则使用自动检测
 		int detectedMode = detectValidationMode(resource);
 		if (detectedMode != VALIDATION_AUTO) {
 			return detectedMode;
@@ -456,6 +462,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 		// Hmm, we didn't get a clear indication... Let's assume XSD,
 		// since apparently no DTD declaration has been found up until
 		// detection stopped (before finding the document's root tag).
+		//没有找到任何有用信息的条件下，默认使用XSD模式
 		return VALIDATION_XSD;
 	}
 
@@ -509,9 +516,14 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	 * @see BeanDefinitionDocumentReader#registerBeanDefinitions
 	 */
 	public int registerBeanDefinitions(Document doc, Resource resource) throws BeanDefinitionStoreException {
+		//通过反射实例化DefaultBeanDefinitionDocumentReader对象
 		BeanDefinitionDocumentReader documentReader = createBeanDefinitionDocumentReader();
+		//在注册新的文档对象到注册器之前，获取之前注册的bean definition数量
+		//默认使用的注册器是DefaultListableBeanFactory的子类，当前我们编写的示例为XmlBeanFactory
 		int countBefore = getRegistry().getBeanDefinitionCount();
+		//注册doc到bean definition容器中
 		documentReader.registerBeanDefinitions(doc, createReaderContext(resource));
+		//返回本次加载的bean definition个数
 		return getRegistry().getBeanDefinitionCount() - countBefore;
 	}
 
