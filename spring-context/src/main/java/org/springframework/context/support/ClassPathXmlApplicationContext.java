@@ -139,8 +139,10 @@ public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContex
 			throws BeansException {
 
 		super(parent);
+		//设置配置路径
 		setConfigLocations(configLocations);
 		if (refresh) {
+			//解析及功能实现的逻辑实现
 			refresh();
 		}
 	}
