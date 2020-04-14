@@ -38,6 +38,8 @@ import org.springframework.lang.Nullable;
  * specific to use with an {@link XmlBeanDefinitionReader}. Provides access to the
  * {@link NamespaceHandlerResolver} configured in the {@link XmlBeanDefinitionReader}.
  *
+ * 对ReaderContext的扩展，在XmlBeanDefinitionReader中提供了对配置的NamespaceHandlerResolver的访问
+ *
  * @author Rob Harrop
  * @author Juergen Hoeller
  * @since 2.0

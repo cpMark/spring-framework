@@ -73,6 +73,8 @@ import org.springframework.util.xml.DomUtils;
  * {@link BeanDefinitionParser BeanDefinitionParsers} or
  * {@link BeanDefinitionDecorator BeanDefinitionDecorators}.
  *
+ * 用于解析XMl bean定义的有状态的代理类
+ *
  * @author Rob Harrop
  * @author Juergen Hoeller
  * @author Rod Johnson
@@ -306,6 +308,7 @@ public class BeanDefinitionParserDelegate {
 	 */
 	public void initDefaults(Element root, @Nullable BeanDefinitionParserDelegate parent) {
 		populateDefaults(this.defaults, (parent != null ? parent.defaults : null), root);
+		// 触发XmlReaderContext的默认注册事件
 		this.readerContext.fireDefaultsRegistered(this.defaults);
 	}
 
@@ -314,6 +317,10 @@ public class BeanDefinitionParserDelegate {
 	 * autowire, dependency check settings, init-method, destroy-method and merge settings.
 	 * Support nested 'beans' element use cases by falling back to {@code parentDefaults}
 	 * in case the defaults are not explicitly set locally.
+	 *
+	 * 使用默认的lazy-init、autowire、依赖检查设置、init-method、destroy-method和合并设置来填充DocumentDefaultsDefinition对象。
+	 * 以上的默认属性，查看当前Element对象有没有设置且是不是默认值，如果本身有设置不为空且不是默认值就直接使用，否则使用父Element中的设置（如果父Element不为空）
+	 *
 	 * @param defaults the defaults to populate
 	 * @param parentDefaults the parent BeanDefinitionParserDelegate (if any) defaults to fall back to
 	 * @param root the root element of the current bean definition document (or nested beans element)
@@ -409,6 +416,8 @@ public class BeanDefinitionParserDelegate {
 	 * Parses the supplied {@code <bean>} element. May return {@code null}
 	 * if there were errors during parse. Errors are reported to the
 	 * {@link org.springframework.beans.factory.parsing.ProblemReporter}.
+	 *
+	 * 解析提供的<bean>元素。在解析期间如果出现错误，将返回null，错误将报告给ProblemReporter
 	 */
 	@Nullable
 	public BeanDefinitionHolder parseBeanDefinitionElement(Element ele, @Nullable BeanDefinition containingBean) {

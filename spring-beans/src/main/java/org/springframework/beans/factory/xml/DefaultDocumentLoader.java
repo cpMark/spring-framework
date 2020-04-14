@@ -90,15 +90,20 @@ public class DefaultDocumentLoader implements DocumentLoader {
 	protected DocumentBuilderFactory createDocumentBuilderFactory(int validationMode, boolean namespaceAware)
 			throws ParserConfigurationException {
 
+		// 构建DocumentBuilderFactory对象
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setNamespaceAware(namespaceAware);
 
+		// 存在验证模式的时候才执行
 		if (validationMode != XmlValidationModeDetector.VALIDATION_NONE) {
+			// 标识当前验证中
 			factory.setValidating(true);
 			if (validationMode == XmlValidationModeDetector.VALIDATION_XSD) {
 				// Enforce namespace aware for XSD...
+				// 验证模式为XSD的模式
 				factory.setNamespaceAware(true);
 				try {
+					// 配置模式语言用于验证
 					factory.setAttribute(SCHEMA_LANGUAGE_ATTRIBUTE, XSD_SCHEMA_LANGUAGE);
 				}
 				catch (IllegalArgumentException ex) {

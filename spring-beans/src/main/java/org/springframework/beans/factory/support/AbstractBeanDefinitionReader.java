@@ -86,6 +86,8 @@ public abstract class AbstractBeanDefinitionReader implements BeanDefinitionRead
 		this.registry = registry;
 
 		// Determine ResourceLoader to use.
+		// 如果当前的BeanDefinitionRegistry是一个ResourceLoader对象就转化为ResourceLoader，
+		// 否则新建一个PathMatchingResourcePatternResolver对象
 		if (this.registry instanceof ResourceLoader) {
 			this.resourceLoader = (ResourceLoader) this.registry;
 		}
@@ -94,6 +96,8 @@ public abstract class AbstractBeanDefinitionReader implements BeanDefinitionRead
 		}
 
 		// Inherit Environment if possible
+		// 如果当前的BeanDefinitionRegistry是一个EnvironmentCapable对象就转化为Environment，
+		// 否则新建一个StandardEnvironment对象
 		if (this.registry instanceof EnvironmentCapable) {
 			this.environment = ((EnvironmentCapable) this.registry).getEnvironment();
 		}

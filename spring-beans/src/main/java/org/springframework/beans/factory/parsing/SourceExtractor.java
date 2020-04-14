@@ -23,6 +23,8 @@ import org.springframework.lang.Nullable;
  * Simple strategy allowing tools to control how source metadata is attached
  * to the bean definition metadata.
  *
+ * 简单的策略：允许工具来控制源元数据如何附加到BeanDefinition的元数据中
+ *
  * <p>Configuration parsers <strong>may</strong> provide the ability to attach
  * source metadata during the parse phase. They will offer this metadata in a
  * generic format which can be further modified by a {@link SourceExtractor}
@@ -40,6 +42,9 @@ public interface SourceExtractor {
 	/**
 	 * Extract the source metadata from the candidate object supplied
 	 * by the configuration parser.
+	 *
+	 * 从配置解析器提供的候选对象中抽取源元数据
+	 *
 	 * @param sourceCandidate the original source metadata (never {@code null})
 	 * @param definingResource the resource that defines the given source object
 	 * (may be {@code null})

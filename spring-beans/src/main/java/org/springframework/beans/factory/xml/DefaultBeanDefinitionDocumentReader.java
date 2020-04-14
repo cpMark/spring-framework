@@ -125,13 +125,15 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		// the new (child) delegate with a reference to the parent for fallback purposes,
 		// then ultimately reset this.delegate back to its original (parent) reference.
 		// this behavior emulates a stack of delegates without actually necessitating one.
+		// 在这个方法中，任何嵌套的<beans>标签都会导致此方法的递归调用
+
 		BeanDefinitionParserDelegate parent = this.delegate;
 		//实例化BeanDefinitionParserDelegate对象
 		this.delegate = createDelegate(getReaderContext(), root, parent);
 
 		//从元素中提取命名空间，判断是否是默认命名空间——为空，或者为'http://www.springframework.org/schema/beans'就认为是默认命名空间
 		if (this.delegate.isDefaultNamespace(root)) {
-			//获取当前激活的环境属性
+			//获取当前激活的环境属性profile
 			String profileSpec = root.getAttribute(PROFILE_ATTRIBUTE);
 			if (StringUtils.hasText(profileSpec)) {
 				//在profile属性不为空的情况下，进行处理

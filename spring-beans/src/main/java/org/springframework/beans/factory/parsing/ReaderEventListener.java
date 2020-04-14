@@ -22,6 +22,8 @@ import java.util.EventListener;
  * Interface that receives callbacks for component, alias and import
  * registrations during a bean definition reading process.
  *
+ * 在BeanDefinition的读取过程中，接收组件、别名和导入注册的回调的接口
+ *
  * @author Rob Harrop
  * @author Juergen Hoeller
  * @since 2.0
@@ -33,6 +35,8 @@ public interface ReaderEventListener extends EventListener {
 	 * Notification that the given defaults has been registered.
 	 * @param defaultsDefinition a descriptor for the defaults
 	 * @see org.springframework.beans.factory.xml.DocumentDefaultsDefinition
+	 *
+	 * 通知已注册给定的默认值
 	 */
 	void defaultsRegistered(DefaultsDefinition defaultsDefinition);
 
@@ -40,18 +44,24 @@ public interface ReaderEventListener extends EventListener {
 	 * Notification that the given component has been registered.
 	 * @param componentDefinition a descriptor for the new component
 	 * @see BeanComponentDefinition
+	 *
+	 * 通知已注册给定的组件
 	 */
 	void componentRegistered(ComponentDefinition componentDefinition);
 
 	/**
 	 * Notification that the given alias has been registered.
 	 * @param aliasDefinition a descriptor for the new alias
+	 *
+	 * 通知已注册给定的别名
 	 */
 	void aliasRegistered(AliasDefinition aliasDefinition);
 
 	/**
 	 * Notification that the given import has been processed.
 	 * @param importDefinition a descriptor for the import
+	 *
+	 * 通知已处理给定的导入
 	 */
 	void importProcessed(ImportDefinition importDefinition);
 
