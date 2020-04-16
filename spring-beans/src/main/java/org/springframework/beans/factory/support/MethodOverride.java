@@ -65,6 +65,9 @@ public abstract class MethodOverride implements BeanMetadataElement {
 	/**
 	 * Set whether the overridden method is <em>overloaded</em> (i.e., whether argument
 	 * type matching needs to occur to disambiguate methods of the same name).
+	 *
+	 * 设置覆盖的方法是否重载（即是否需要参数类型匹配以消除同名方法的歧义）
+	 *
 	 * <p>Default is {@code true}; can be switched to {@code false} to optimize
 	 * runtime performance.
 	 */

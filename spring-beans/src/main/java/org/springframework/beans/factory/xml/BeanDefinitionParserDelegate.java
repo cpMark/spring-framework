@@ -444,6 +444,7 @@ public class BeanDefinitionParserDelegate {
 		}
 
 		if (containingBean == null) {
+			// 校验名称的唯一性
 			checkNameUniqueness(beanName, aliases, ele);
 		}
 
@@ -452,6 +453,8 @@ public class BeanDefinitionParserDelegate {
 		if (beanDefinition != null) {
 			if (!StringUtils.hasText(beanName)) {
 				try {
+					// 以下两端逻辑，最终都是调用BeanDefinitionReaderUtils.generateBeanName
+
 					//如果不存在beanName，那么根据Spring中提供的命名规则为当前bean生成对应的beanName
 					if (containingBean != null) {
 						beanName = BeanDefinitionReaderUtils.generateBeanName(
@@ -463,6 +466,7 @@ public class BeanDefinitionParserDelegate {
 						// if the generator returned the class name plus a suffix.
 						// This is expected for Spring 1.2/2.0 backwards compatibility.
 						String beanClassName = beanDefinition.getBeanClassName();
+						// 如果是以beanClassName作为前缀生成了beanName，且在当前注册器中之前没有使用过改beanClassName，则将beanClassName注册到别名中
 						if (beanClassName != null &&
 								beanName.startsWith(beanClassName) && beanName.length() > beanClassName.length() &&
 								!this.readerContext.getRegistry().isBeanNameInUse(beanClassName)) {
@@ -479,6 +483,7 @@ public class BeanDefinitionParserDelegate {
 					return null;
 				}
 			}
+			// 将别名List转换为字符串数组
 			String[] aliasesArray = StringUtils.toStringArray(aliases);
 			return new BeanDefinitionHolder(beanDefinition, beanName, aliasesArray);
 		}
@@ -489,6 +494,10 @@ public class BeanDefinitionParserDelegate {
 	/**
 	 * Validate that the specified bean name and aliases have not been used already
 	 * within the current level of beans element nesting.
+	 *
+	 * 校验当前<beans>级别中，beanName是否唯一。分别：
+	 * 1.已使用的名称中查找beanName
+	 * 2.判断已使用的名称中是否有匹配别名集合中的信息
 	 */
 	protected void checkNameUniqueness(String beanName, List<String> aliases, Element beanElement) {
 		String foundName = null;
@@ -510,6 +519,8 @@ public class BeanDefinitionParserDelegate {
 	/**
 	 * Parse the bean definition itself, without regard to name or aliases. May return
 	 * {@code null} if problems occurred during the parsing of the bean definition.
+	 *
+	 * 解析生成BeanDefinition
 	 */
 	@Nullable
 	public AbstractBeanDefinition parseBeanDefinitionElement(
@@ -1513,6 +1524,9 @@ public class BeanDefinitionParserDelegate {
 
 	/**
 	 * Decorate the given bean definition through a namespace handler, if applicable.
+	 *
+	 * 如果适用，通过命名空间处理程序装饰给定的BeanDefinition
+	 *
 	 * @param ele the current element
 	 * @param originalDef the current bean definition
 	 * @return the decorated bean definition
@@ -1534,7 +1548,8 @@ public class BeanDefinitionParserDelegate {
 		BeanDefinitionHolder finalDefinition = originalDef;
 
 		// Decorate based on custom attributes first.
-		//获取所有的属性进行遍历，看看是否适用于修饰的属性
+		// 获取所有的属性进行遍历，看看是否适用于修饰的属性——获取节点的命名空间，判断命名空间是否是默认的，如果不是默认的就获取命名空间的解析器，
+		// 通过解析器获取命名空间处理器，进行装饰处理
 		NamedNodeMap attributes = ele.getAttributes();
 		for (int i = 0; i < attributes.getLength(); i++) {
 			Node node = attributes.item(i);
@@ -1547,6 +1562,7 @@ public class BeanDefinitionParserDelegate {
 		for (int i = 0; i < children.getLength(); i++) {
 			Node node = children.item(i);
 			if (node.getNodeType() == Node.ELEMENT_NODE) {
+				// 如果子节点类型为Element，则进行修饰
 				finalDefinition = decorateIfRequired(node, finalDefinition, containingBd);
 			}
 		}

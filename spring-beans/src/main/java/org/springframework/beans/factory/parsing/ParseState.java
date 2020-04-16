@@ -25,6 +25,8 @@ import org.springframework.lang.Nullable;
  * a parsing process. {@link Entry entries} are added to the LinkedList at
  * each point during the parse phase in a reader-specific manner.
  *
+ * 基于LinkedList的简单结构，用于在解析过程中的追踪逻辑位置。在解析的每一个阶段，都会添加一个Entry对象到LinkedList中
+ *
  * <p>Calling {@link #toString()} will render a tree-style view of the current logical
  * position in the parse phase. This representation is intended for use in
  * error messages.
@@ -41,6 +43,8 @@ public final class ParseState {
 
 	/**
 	 * Internal {@link LinkedList} storage.
+	 *
+	 * 实际的存储结构
 	 */
 	private final LinkedList<Entry> state;
 

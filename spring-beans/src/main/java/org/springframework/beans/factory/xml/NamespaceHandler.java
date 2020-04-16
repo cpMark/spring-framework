@@ -75,6 +75,9 @@ public interface NamespaceHandler {
 	/**
 	 * Parse the specified {@link Node} and decorate the supplied
 	 * {@link BeanDefinitionHolder}, returning the decorated definition.
+	 *
+	 * 解析特定的Node，并修饰BeanDefinitionHolder，返回修饰后的BeanDefinitionHolder
+	 *
 	 * <p>The {@link Node} may be either an {@link org.w3c.dom.Attr} or an
 	 * {@link Element}, depending on whether a custom attribute or element
 	 * is being parsed.

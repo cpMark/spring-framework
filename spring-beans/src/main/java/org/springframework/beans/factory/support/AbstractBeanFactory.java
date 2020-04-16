@@ -195,11 +195,13 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 
 	/**
 	 * Map from bean name to merged RootBeanDefinition.
+	 * beanName到合并RootBeanDefinition的Map
 	 */
 	private final Map<String, RootBeanDefinition> mergedBeanDefinitions = new ConcurrentHashMap<>(256);
 
 	/**
 	 * Names of beans that have already been created at least once.
+	 * 至少已经创建一次的bean的名称集合
 	 */
 	private final Set<String> alreadyCreated = Collections.newSetFromMap(new ConcurrentHashMap<>(256));
 
@@ -278,7 +280,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	protected <T> T doGetBean(final String name, @Nullable final Class<T> requiredType,
 							  @Nullable final Object[] args, boolean typeCheckOnly) throws BeansException {
 
-		//提取对应的beanName——传入的name可能是别名，也可能是FactoryBean，所以需要进行解析
+		//提取对应的beanName——传入的name可能是别名，也可能是FactoryBean，所以需要进行解析真正的beanName
 		final String beanName = transformedBeanName(name);
 		Object bean;
 
@@ -1166,6 +1168,8 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	 * Return the bean name, stripping out the factory dereference prefix if necessary,
 	 * and resolving aliases to canonical names.
 	 *
+	 * 返回beanName，必要时移除工厂引用前缀和将别名规范化
+	 *
 	 * @param name the user-specified name
 	 * @return the transformed bean name
 	 */
@@ -1380,6 +1384,8 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	/**
 	 * Remove the merged bean definition for the specified bean,
 	 * recreating it on next access.
+	 *
+	 * 删除指定bean的合并BeanDefinition，下次访问时重新创建
 	 *
 	 * @param beanName the bean name to clear the merged definition for
 	 */
@@ -1664,6 +1670,8 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	/**
 	 * Check whether this factory's bean creation phase already started,
 	 * i.e. whether any bean has been marked as created in the meantime.
+	 *
+	 * 检查该工厂的bean创建阶段是否已经开始
 	 *
 	 * @see #markBeanAsCreated
 	 * @since 4.2.2

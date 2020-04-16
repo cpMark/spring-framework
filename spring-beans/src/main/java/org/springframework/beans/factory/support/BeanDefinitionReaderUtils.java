@@ -94,6 +94,9 @@ public abstract class BeanDefinitionReaderUtils {
 	/**
 	 * Generate a bean name for the given bean definition, unique within the
 	 * given bean factory.
+	 *
+	 * 为给定的BeanDefinition生成一个beanName，在给定的BeanFactory中是唯一的
+	 *
 	 * @param definition the bean definition to generate a bean name for
 	 * @param registry the bean factory that the definition is going to be
 	 * registered with (to check for existing bean names)
@@ -110,6 +113,8 @@ public abstract class BeanDefinitionReaderUtils {
 
 		String generatedBeanName = definition.getBeanClassName();
 		if (generatedBeanName == null) {
+			// 如果parentName不为空，则当前BeanDefinition的beanName为——parentName+$child
+			// 如果parentName为空，但是factoryBeanName不为空，则当前BeanDefinition的beanName为——parentName+$created
 			if (definition.getParentName() != null) {
 				generatedBeanName = definition.getParentName() + "$child";
 			}
@@ -125,10 +130,12 @@ public abstract class BeanDefinitionReaderUtils {
 		String id = generatedBeanName;
 		if (isInnerBean) {
 			// Inner bean: generate identity hashcode suffix.
+			// 内部bean：生成哈希码后缀标识
 			id = generatedBeanName + GENERATED_BEAN_NAME_SEPARATOR + ObjectUtils.getIdentityHexString(definition);
 		}
 		else {
 			// Top-level bean: use plain class name with unique suffix if necessary.
+			// 顶级bean：如果有需要，使用带有唯一后缀的普通类名
 			return uniqueBeanName(generatedBeanName, registry);
 		}
 		return id;
@@ -148,6 +155,7 @@ public abstract class BeanDefinitionReaderUtils {
 		int counter = -1;
 
 		// Increase counter until the id is unique.
+		// 递增计数值直到id为唯一。格式为：beanName+#+计数值
 		while (counter == -1 || registry.containsBeanDefinition(id)) {
 			counter++;
 			id = beanName + GENERATED_BEAN_NAME_SEPARATOR + counter;
@@ -166,8 +174,9 @@ public abstract class BeanDefinitionReaderUtils {
 			throws BeanDefinitionStoreException {
 
 		// Register bean definition under primary name.
-		//使用beanName作为唯一标识，注册对应的BeanDefinition对象
+		// 使用beanName作为唯一标识，注册对应的BeanDefinition对象
 		String beanName = definitionHolder.getBeanName();
+		// 注册当前beanName和关联的BeanDefinition，如果存在覆盖，则重置所有依赖于当前beanName和以当前beanName为父元素的元素的引用
 		registry.registerBeanDefinition(beanName, definitionHolder.getBeanDefinition());
 
 		// Register aliases for bean name, if any.

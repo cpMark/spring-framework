@@ -1158,11 +1158,13 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	 * @throws BeanDefinitionValidationException in case of validation failure
 	 */
 	public void validate() throws BeanDefinitionValidationException {
+		// 如果存在方法重写，且存在对应bean属性的factory-method，则抛出异常
 		if (hasMethodOverrides() && getFactoryMethodName() != null) {
 			throw new BeanDefinitionValidationException(
 					"Cannot combine factory method with container-generated method overrides: " +
 					"the factory method must create the concrete bean instance.");
 		}
+		// 判断是否是Class
 		if (hasBeanClass()) {
 			prepareMethodOverrides();
 		}
@@ -1171,6 +1173,9 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	/**
 	 * Validate and prepare the method overrides defined for this bean.
 	 * Checks for existence of a method with the specified name.
+	 *
+	 * 验证并准备为当前bean中定义的方法进行重写
+	 *
 	 * @throws BeanDefinitionValidationException in case of validation failure
 	 */
 	public void prepareMethodOverrides() throws BeanDefinitionValidationException {
@@ -1189,7 +1194,7 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	 * @throws BeanDefinitionValidationException in case of validation failure
 	 */
 	protected void prepareMethodOverride(MethodOverride mo) throws BeanDefinitionValidationException {
-		//通过反射获取对应类中对应方法名的个数
+		//通过反射获取对应类中对应方法名的个数——包含本类+所有接口+所有父类中所有同名的方法个数
 		int count = ClassUtils.getMethodCountForName(getBeanClass(), mo.getMethodName());
 		if (count == 0) {
 			throw new BeanDefinitionValidationException(
@@ -1198,7 +1203,8 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 		}
 		else if (count == 1) {
 			// Mark override as not overloaded, to avoid the overhead of arg type checking.
-			//标记MethodOverride暂未被覆盖，避免参数类型检查的开销
+			// 标记MethodOverride暂未被覆盖，避免参数类型检查的开销
+			// 设置覆盖的方法没有重载（即不需要参数类型匹配以消除同名方法的歧义）
 			mo.setOverloaded(false);
 		}
 	}

@@ -30,6 +30,8 @@ import org.springframework.lang.Nullable;
  * ComponentDefinition based on a standard BeanDefinition, exposing the given bean
  * definition as well as inner bean definitions and bean references for the given bean.
  *
+ * ComponentDefinition以标准的BeanDefinition为基础，公开了给定BeanDefinition以及给定BeanDefinition的内部BeanDefinition和bean引用
+ *
  * @author Rob Harrop
  * @author Juergen Hoeller
  * @since 2.0
@@ -66,6 +68,7 @@ public class BeanComponentDefinition extends BeanDefinitionHolder implements Com
 	 * the bean definition as well as the name of the bean
 	 */
 	public BeanComponentDefinition(BeanDefinitionHolder beanDefinitionHolder) {
+		// 调用父构造，保存了BeanDefinition和beanName，还有aliases
 		super(beanDefinitionHolder);
 
 		List<BeanDefinition> innerBeans = new ArrayList<>();
@@ -73,12 +76,14 @@ public class BeanComponentDefinition extends BeanDefinitionHolder implements Com
 		PropertyValues propertyValues = beanDefinitionHolder.getBeanDefinition().getPropertyValues();
 		for (PropertyValue propertyValue : propertyValues.getPropertyValues()) {
 			Object value = propertyValue.getValue();
+			// 内部bean
 			if (value instanceof BeanDefinitionHolder) {
 				innerBeans.add(((BeanDefinitionHolder) value).getBeanDefinition());
 			}
 			else if (value instanceof BeanDefinition) {
 				innerBeans.add((BeanDefinition) value);
 			}
+			// 引用bean
 			else if (value instanceof BeanReference) {
 				references.add((BeanReference) value);
 			}
