@@ -68,6 +68,8 @@ import org.springframework.util.StringUtils;
  * Delegate for resolving constructors and factory methods.
  * Performs constructor resolution through argument matching.
  *
+ * 解析构造函数和工厂方法的代理。通过参数匹配来执行构造函数的解析
+ *
  * @author Juergen Hoeller
  * @author Rob Harrop
  * @author Mark Fisher
@@ -92,6 +94,7 @@ class ConstructorResolver {
 
 	/**
 	 * Create a new ConstructorResolver for the given factory and instantiation strategy.
+	 * 通过给定的工厂和实例化策略来构建一个新的构造函数解析器对象
 	 * @param beanFactory the BeanFactory to work with
 	 */
 	public ConstructorResolver(AbstractAutowireCapableBeanFactory beanFactory) {
@@ -397,6 +400,9 @@ class ConstructorResolver {
 	 * Instantiate the bean using a named factory method. The method may be static, if the
 	 * bean definition parameter specifies a class, rather than a "factory-bean", or
 	 * an instance variable on a factory object itself configured using Dependency Injection.
+	 *
+	 * 使用命名工厂方法来实例化bean
+	 *
 	 * <p>Implementation requires iterating over the static or instance methods with the
 	 * name specified in the RootBeanDefinition (the method may be overloaded) and trying
 	 * to match with the parameters. We don't have the types attached to constructor args,
@@ -418,16 +424,21 @@ class ConstructorResolver {
 		Class<?> factoryClass;
 		boolean isStatic;
 
+		// 确定factoryBean、factoryClass和isStatic
+		// 获取工厂的bean名称
 		String factoryBeanName = mbd.getFactoryBeanName();
 		if (factoryBeanName != null) {
 			if (factoryBeanName.equals(beanName)) {
 				throw new BeanDefinitionStoreException(mbd.getResourceDescription(), beanName,
 						"factory-bean reference points back to the same bean definition");
 			}
+
+			// 通过bean工厂实例，先获取factoryBeanName对应的工厂实例
 			factoryBean = this.beanFactory.getBean(factoryBeanName);
 			if (mbd.isSingleton() && this.beanFactory.containsSingleton(beanName)) {
 				throw new ImplicitlyAppearedSingletonException();
 			}
+			// 获取factoryBean对应的Class对象，并表示当前为非静态
 			factoryClass = factoryBean.getClass();
 			isStatic = false;
 		}
@@ -438,6 +449,8 @@ class ConstructorResolver {
 						"bean definition declares neither a bean class nor a factory-bean reference");
 			}
 			factoryBean = null;
+
+			// 获取factoryBean对应的Class对象，并表示当前为静态
 			factoryClass = mbd.getBeanClass();
 			isStatic = true;
 		}
@@ -446,7 +459,9 @@ class ConstructorResolver {
 		ArgumentsHolder argsHolderToUse = null;
 		Object[] argsToUse = null;
 
+		// 确定argsToUse
 		if (explicitArgs != null) {
+			// 有显性的参数
 			argsToUse = explicitArgs;
 		}
 		else {
@@ -457,11 +472,13 @@ class ConstructorResolver {
 					// Found a cached factory method...
 					argsToUse = mbd.resolvedConstructorArguments;
 					if (argsToUse == null) {
+						// 如果没有完全解析的参数，则指定为部分解析的参数
 						argsToResolve = mbd.preparedConstructorArguments;
 					}
 				}
 			}
 			if (argsToResolve != null) {
+				// 解析部分解析的参数
 				argsToUse = resolvePreparedArguments(beanName, mbd, bw, factoryMethodToUse, argsToResolve, true);
 			}
 		}

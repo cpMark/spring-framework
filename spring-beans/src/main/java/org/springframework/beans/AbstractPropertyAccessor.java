@@ -89,6 +89,8 @@ public abstract class AbstractPropertyAccessor extends TypeConverterSupport impl
 		List<PropertyAccessException> propertyAccessExceptions = null;
 		List<PropertyValue> propertyValues = (pvs instanceof MutablePropertyValues ?
 				((MutablePropertyValues) pvs).getPropertyValueList() : Arrays.asList(pvs.getPropertyValues()));
+
+		// 遍历属性列表，然后进行设置
 		for (PropertyValue pv : propertyValues) {
 			try {
 				// This method may throw any BeansException, which won't be caught
@@ -146,6 +148,9 @@ public abstract class AbstractPropertyAccessor extends TypeConverterSupport impl
 
 	/**
 	 * Actually set a property value.
+	 *
+	 * 实际设置属性值的地方
+	 *
 	 * @param propertyName name of the property to set value of
 	 * @param value the new value
 	 * @throws InvalidPropertyException if there is no such property or

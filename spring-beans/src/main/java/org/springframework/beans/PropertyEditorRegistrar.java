@@ -21,6 +21,8 @@ package org.springframework.beans;
  * {@link java.beans.PropertyEditor property editors} with a
  * {@link org.springframework.beans.PropertyEditorRegistry property editor registry}.
  *
+ * 使用属性编辑器注册器来注册自定义的属性编辑器的策略接口
+ *
  * <p>This is particularly useful when you need to use the same set of
  * property editors in several different situations: write a corresponding
  * registrar and reuse that in each case.

@@ -34,6 +34,8 @@ import org.springframework.util.ReflectionUtils;
  * Default {@link BeanWrapper} implementation that should be sufficient
  * for all typical use cases. Caches introspection results for efficiency.
  *
+ * 接口BeanWrapper的默认实现，对于大部分典型用例都是足够使用的。缓存自省结果以提高效率
+ *
  * <p>Note: Auto-registers default property editors from the
  * {@code org.springframework.beans.propertyeditors} package, which apply
  * in addition to the JDK's standard PropertyEditors. Applications can call
