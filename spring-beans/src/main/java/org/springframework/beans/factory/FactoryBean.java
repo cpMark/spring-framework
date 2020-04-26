@@ -24,6 +24,9 @@ import org.springframework.lang.Nullable;
  * interface, it is used as a factory for an object to expose, not directly as a
  * bean instance that will be exposed itself.
  *
+ * 在{@link BeanFactory}中使用的对象实现的接口，这些对象本身是单个对象的工厂.
+ * 如果bean实现此接口，它将用作对象公开的工厂，而不是直接用作将自身公开的bean实例
+ *
  * <p><b>NB: A bean that implements this interface cannot be used as a normal bean.</b>
  * A FactoryBean is defined in a bean style, but the object exposed for bean
  * references ({@link #getObject()}) is always the object that it creates.
@@ -31,6 +34,9 @@ import org.springframework.lang.Nullable;
  * <p>FactoryBeans can support singletons and prototypes, and can either create
  * objects lazily on demand or eagerly on startup. The {@link SmartFactoryBean}
  * interface allows for exposing more fine-grained behavioral metadata.
+ *
+ * FactoryBeans可以支持单例和原型，并且可以按需懒加载对象，也可以在启动时立即创建对象。
+ * {@link SmartFactoryBean} 接口允许公开更细粒度的行为元数据。
  *
  * <p>This interface is heavily used within the framework itself, for example for
  * the AOP {@link org.springframework.aop.framework.ProxyFactoryBean} or the
@@ -61,14 +67,28 @@ public interface FactoryBean<T> {
 	/**
 	 * Return an instance (possibly shared or independent) of the object
 	 * managed by this factory.
+	 *
+	 * 返回此工厂管理的对象的实例（可能是共享的或独立的）
+	 *
 	 * <p>As with a {@link BeanFactory}, this allows support for both the
 	 * Singleton and Prototype design pattern.
+	 *
+	 * 与{@link BeanFactory}一样，这允许支持Singleton和Prototype模式
+	 *
 	 * <p>If this FactoryBean is not fully initialized yet at the time of
 	 * the call (for example because it is involved in a circular reference),
 	 * throw a corresponding {@link FactoryBeanNotInitializedException}.
+	 *
+	 * 如果在调用此FactoryBean时尚未完全初始化（例如，因为它包含在循环引用中），
+	 * 会抛出相应的{@link FactoryBeanNotInitializedException}
+	 *
 	 * <p>As of Spring 2.0, FactoryBeans are allowed to return {@code null}
 	 * objects. The factory will consider this as normal value to be used; it
 	 * will not throw a FactoryBeanNotInitializedException in this case anymore.
+	 *
+	 * 从Spring 2.0开始，FactoryBeans被允许返回{@code null}对象。工厂将其视为正常值使用；
+	 * 在这种情况下，将不再抛出FactoryBeanNotInitializedException。
+	 *
 	 * FactoryBean implementations are encouraged to throw
 	 * FactoryBeanNotInitializedException themselves now, as appropriate.
 	 * @return an instance of the bean (can be {@code null})
