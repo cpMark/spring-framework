@@ -148,7 +148,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 
 	/**
 	 * Whether to allow re-registration of a different definition with the same name.
-	 *
+	 * <p>
 	 * 是否允许BeanDefinition重写——name相同的情况下
 	 */
 	private boolean allowBeanDefinitionOverriding = true;
@@ -225,6 +225,8 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 
 	/**
 	 * Create a new DefaultListableBeanFactory with the given parent.
+	 * <p>
+	 * 使用给定的父类BeanFactory实例来创建一个DefaultListableBeanFactory实例
 	 *
 	 * @param parentBeanFactory the parent BeanFactory
 	 */
@@ -272,7 +274,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	/**
 	 * Return whether it should be allowed to override bean definitions by registering
 	 * a different definition with the same name, automatically replacing the former.
-	 *
+	 * <p>
 	 * 返回是否允许覆盖相同名称的BeanDefinition
 	 *
 	 * @since 4.1.2
@@ -1027,7 +1029,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	/**
 	 * Reset all bean definition caches for the given bean,
 	 * including the caches of beans that are derived from it.
-	 *
+	 * <p>
 	 * 重置给定bean的所有BeanDefinition缓存，包括从其派生出来的bean缓存
 	 *
 	 * <p>Called after an existing bean definition has been replaced or removed,
@@ -1108,7 +1110,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 
 	/**
 	 * Update the factory's internal set of manual singleton names.
-	 *
+	 * <p>
 	 * 更新工厂内部的手动单例名称集
 	 *
 	 * @param action    the modification action

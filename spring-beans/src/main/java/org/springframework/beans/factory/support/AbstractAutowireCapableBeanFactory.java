@@ -152,6 +152,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	/**
 	 * Dependency interfaces to ignore on dependency check and autowire, as Set of
 	 * Class objects. By default, only the BeanFactory interface is ignored.
+	 *
+	 * 忽略依赖检查和自动装配的依赖接口，如Class对象的集合。默认情况下，仅仅BeanFactory接口被忽略
+	 *
 	 */
 	private final Set<Class<?>> ignoredDependencyInterfaces = new HashSet<>();
 
@@ -192,6 +195,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 	/**
 	 * Create a new AbstractAutowireCapableBeanFactory with the given parent.
+	 * <p>
+	 * 使用给定的父BeanFactory来创建一个AbstractAutowireCapableBeanFactory实例
 	 *
 	 * @param parentBeanFactory parent bean factory, or {@code null} if none
 	 */
@@ -282,11 +287,20 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 	/**
 	 * Ignore the given dependency interface for autowiring.
+	 * <p>
+	 * 忽略给定的依赖接口进行自动装配
+	 *
 	 * <p>This will typically be used by application contexts to register
 	 * dependencies that are resolved in other ways, like BeanFactory through
 	 * BeanFactoryAware or ApplicationContext through ApplicationContextAware.
+	 * <p>
+	 * 应用程序上下文通常使用它来注册以其他方式解决的依赖关系，例如通过BeanFactoryAware注册BeanFactory
+	 * 或通过ApplicationContextAware注册ApplicationContext
+	 *
 	 * <p>By default, only the BeanFactoryAware interface is ignored.
 	 * For further types to ignore, invoke this method for each type.
+	 * <p>
+	 * 默认情况下，仅BeanFactoryAware接口被忽略。 要忽略其他类型，请为每种类型调用此方法。
 	 *
 	 * @see org.springframework.beans.factory.BeanFactoryAware
 	 * @see org.springframework.context.ApplicationContextAware
@@ -1419,7 +1433,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	/**
 	 * Populate the bean instance in the given BeanWrapper with the property values
 	 * from the bean definition.
-	 *
+	 * <p>
 	 * 使用来着BeanDefinition的属性值来填充在给定BeanWrapper中的bean实例
 	 *
 	 * @param beanName the name of the bean
@@ -1615,7 +1629,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 * Return an array of non-simple bean properties that are unsatisfied.
 	 * These are probably unsatisfied references to other beans in the
 	 * factory. Does not include simple properties like primitives or Strings.
-	 *
+	 * <p>
 	 * 返回非基础类型的bean属性数组
 	 *
 	 * @param mbd the merged bean definition the bean was created with
@@ -1726,7 +1740,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 * Apply the given property values, resolving any runtime references
 	 * to other beans in this bean factory. Must use deep copy, so we
 	 * don't permanently modify this property.
-	 *
+	 * <p>
 	 * 应用给定的属性值
 	 *
 	 * @param beanName the bean name passed for better exception information

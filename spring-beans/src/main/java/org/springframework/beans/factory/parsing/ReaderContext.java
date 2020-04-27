@@ -153,6 +153,7 @@ public class ReaderContext {
 
 	/**
 	 * Fire an defaults-registered event.
+	 * 触发默认注册事件
 	 */
 	public void fireDefaultsRegistered(DefaultsDefinition defaultsDefinition) {
 		this.eventListener.defaultsRegistered(defaultsDefinition);

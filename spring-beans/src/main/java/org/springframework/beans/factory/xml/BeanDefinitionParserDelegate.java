@@ -73,7 +73,7 @@ import org.springframework.util.xml.DomUtils;
  * {@link BeanDefinitionParser BeanDefinitionParsers} or
  * {@link BeanDefinitionDecorator BeanDefinitionDecorators}.
  *
- * 用于解析XMl bean定义的有状态的代理类
+ * 用于解析XMl bean定义的有状态的代理类.
  *
  * @author Rob Harrop
  * @author Juergen Hoeller
@@ -303,6 +303,10 @@ public class BeanDefinitionParserDelegate {
 	 * init-method, destroy-method and merge settings. Support nested 'beans'
 	 * element use cases by falling back to the given parent in case the
 	 * defaults are not explicitly set locally.
+	 *
+	 * 初始化默认的lazy-init，autowire，依赖项检查设置，init-method，destroy-method和merge设置。
+	 * 在没有本地显式设置默认值的情况下，使用给定的父级的设置来支持嵌套的'beans'元素用例。
+	 *
 	 * @see #populateDefaults(DocumentDefaultsDefinition, DocumentDefaultsDefinition, org.w3c.dom.Element)
 	 * @see #getDefaults()
 	 */

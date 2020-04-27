@@ -55,6 +55,9 @@ import org.springframework.util.xml.XmlValidationModeDetector;
  * Bean definition reader for XML bean definitions.
  * Delegates the actual XML document reading to an implementation
  * of the {@link BeanDefinitionDocumentReader} interface.
+ * <p>
+ * Bean定义阅读器，用于XML Bean定义。将实际的XML文档读取委托给{@link BeanDefinitionDocumentReader}接口的实现。
+ * ——{@link DefaultBeanDefinitionDocumentReader}
  *
  * <p>Typically applied to a
  * {@link org.springframework.beans.factory.support.DefaultListableBeanFactory}
@@ -319,6 +322,8 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
 	/**
 	 * Load bean definitions from the specified XML file.
+	 * <p>
+	 * 从特定的xml文件加载bean定义
 	 *
 	 * @param resource the resource descriptor for the XML file
 	 * @return the number of bean definitions found
@@ -331,6 +336,8 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
 	/**
 	 * Load bean definitions from the specified XML file.
+	 * <p>
+	 * 从特定的xml文件读取bean定义
 	 *
 	 * @param encodedResource the resource descriptor for the XML file,
 	 *                        allowing to specify an encoding to use for parsing the file
@@ -350,7 +357,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 			this.resourcesCurrentlyBeingLoaded.set(currentResources);
 		}
 
-		// 将当前EncodedResource对象保存起来，如果保存失败抛出循环加载的异常
+		// 将当前EncodedResource对象保存起来，如果保存失败抛出循环加载的异常——说明当前已经在加载了
 		if (!currentResources.add(encodedResource)) {
 			throw new BeanDefinitionStoreException(
 					"Detected cyclic loading of " + encodedResource + " - check your import definitions!");
@@ -410,6 +417,8 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
 	/**
 	 * Actually load bean definitions from the specified XML file.
+	 * <p>
+	 * 真正从特定xml文件加载bean定义的地方
 	 *
 	 * @param inputSource the SAX InputSource to read from
 	 * @param resource    the resource descriptor for the XML file
@@ -452,6 +461,8 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
 	/**
 	 * Actually load the specified document using the configured DocumentLoader.
+	 * <p>
+	 * 使用配置的文档加载器加载特定的Document对象
 	 *
 	 * @param inputSource the SAX InputSource to read from
 	 * @param resource    the resource descriptor for the XML file

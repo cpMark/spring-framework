@@ -21,14 +21,19 @@ import org.springframework.beans.BeanMetadataElement;
 /**
  * Marker interface for a defaults definition,
  * extending BeanMetadataElement to inherit source exposure.
+ * <p>
+ * 用于默认定义的标记接口，扩展自BeanMetadataElement，以继承源对象公开的方法
+ *
  *
  * <p>Concrete implementations are typically based on 'document defaults',
  * for example specified at the root tag level within an XML document.
+ * <p>
+ * 具体的实现通常基于“文档默认值”，例如在XML文档中执行的的根标记级别
  *
  * @author Juergen Hoeller
- * @since 2.0.2
  * @see org.springframework.beans.factory.xml.DocumentDefaultsDefinition
  * @see ReaderEventListener#defaultsRegistered(DefaultsDefinition)
+ * @since 2.0.2
  */
 public interface DefaultsDefinition extends BeanMetadataElement {
 

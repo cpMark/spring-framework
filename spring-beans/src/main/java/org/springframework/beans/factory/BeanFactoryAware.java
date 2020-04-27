@@ -21,22 +21,27 @@ import org.springframework.beans.BeansException;
 /**
  * Interface to be implemented by beans that wish to be aware of their
  * owning {@link BeanFactory}.
+ * <p>
+ * 由希望知道自己的{@link BeanFactory}的bean实现的接口。
  *
  * <p>For example, beans can look up collaborating beans via the factory
  * (Dependency Lookup). Note that most beans will choose to receive references
  * to collaborating beans via corresponding bean properties or constructor
  * arguments (Dependency Injection).
  *
+ * 例如，bean可以通过工厂（依赖关系查找）来查找协作bean。注意，大多数bean将选择通过
+ * 相应的bean属性或构造函数参数（依赖注入）来接收对协作bean的引用。
+ *
  * <p>For a list of all bean lifecycle methods, see the
  * {@link BeanFactory BeanFactory javadocs}.
  *
  * @author Rod Johnson
  * @author Chris Beams
- * @since 11.03.2003
  * @see BeanNameAware
  * @see BeanClassLoaderAware
  * @see InitializingBean
  * @see org.springframework.context.ApplicationContextAware
+ * @since 11.03.2003
  */
 public interface BeanFactoryAware extends Aware {
 
@@ -45,8 +50,12 @@ public interface BeanFactoryAware extends Aware {
 	 * <p>Invoked after the population of normal bean properties
 	 * but before an initialization callback such as
 	 * {@link InitializingBean#afterPropertiesSet()} or a custom init-method.
+	 *
+	 * 将拥有的工厂提供给Bean实例的回调。在填充常规的bean属性之后调用，但是在初始化回调之前调用，
+	 * 例如{@link InitializingBean＃afterPropertiesSet（）}或自定义的初始化方法。
+	 *
 	 * @param beanFactory owning BeanFactory (never {@code null}).
-	 * The bean can immediately call methods on the factory.
+	 *                    The bean can immediately call methods on the factory.
 	 * @throws BeansException in case of initialization errors
 	 * @see BeanInitializationException
 	 */

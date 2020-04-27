@@ -761,6 +761,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	@Override
 	public void setParentBeanFactory(@Nullable BeanFactory parentBeanFactory) {
 		if (this.parentBeanFactory != null && this.parentBeanFactory != parentBeanFactory) {
+			// 重复设置父BeanFactory抛出异常
 			throw new IllegalStateException("Already associated with parent BeanFactory: " + this.parentBeanFactory);
 		}
 		this.parentBeanFactory = parentBeanFactory;
@@ -1213,7 +1214,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	 * Initialize the given BeanWrapper with the custom editors registered
 	 * with this factory. To be called for BeanWrappers that will create
 	 * and populate bean instances.
-	 *
+	 * <p>
 	 * 使用在当前工厂注册了的自定义编辑器来初始化给定的BeanWrapper。被BeanWrappers调用，它将创建和填充bean实例
 	 *
 	 * <p>The default implementation delegates to {@link #registerCustomEditors}.
@@ -1231,7 +1232,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	/**
 	 * Initialize the given PropertyEditorRegistry with the custom editors
 	 * that have been registered with this BeanFactory.
-	 *
+	 * <p>
 	 * 使用已在此BeanFactory中注册的自定义编辑器来初始化给定的PropertyEditorRegistry
 	 *
 	 * <p>To be called for BeanWrappers that will create and populate bean
