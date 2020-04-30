@@ -7,10 +7,12 @@
 	<import resource="user-msg.xml"/>
 
 	<bean id="myTestBean" class="com.example.test.ch2.MyTestBean"/>
+	<bean name="people" class="com.example.test.ch2.People"/>
 
 	<bean id="student" class="com.example.test.ch2.Student">
 		<constructor-arg ref="user"/>
 		<constructor-arg value="80"/>
+		<constructor-arg ref="people"/>
 	</bean>
 
 </beans>

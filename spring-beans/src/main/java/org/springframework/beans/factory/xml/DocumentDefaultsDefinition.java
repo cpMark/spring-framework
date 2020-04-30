@@ -24,6 +24,9 @@ import org.springframework.lang.Nullable;
  * level in a standard Spring XML bean definition document:
  * {@code default-lazy-init}, {@code default-autowire}, etc.
  *
+ * 简单的JavaBean，包含标准Spring XML bean定义文档中{@code <beans>} 级别指定的默认值：
+ * {@code default-lazy-init}，{@code default-autowire}等。
+ *
  * @author Juergen Hoeller
  * @since 2.0.2
  */

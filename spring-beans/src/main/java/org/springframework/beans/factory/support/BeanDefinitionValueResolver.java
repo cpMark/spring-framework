@@ -283,6 +283,8 @@ class BeanDefinitionValueResolver {
 
 	/**
 	 * Resolve a reference to another bean in the factory.
+	 *
+	 * 在工厂中解决对另一个bean的引用
 	 */
 	@Nullable
 	private Object resolveReference(Object argName, RuntimeBeanReference ref) {
@@ -300,6 +302,7 @@ class BeanDefinitionValueResolver {
 				bean = this.beanFactory.getParentBeanFactory().getBean(refName);
 			}
 			else {
+				// 注册bean的依赖关系，从依赖bean->依赖于bean的bean，到依赖bean->当前依赖bean所依赖的bean
 				bean = this.beanFactory.getBean(refName);
 				this.beanFactory.registerDependentBean(refName, this.beanName);
 			}

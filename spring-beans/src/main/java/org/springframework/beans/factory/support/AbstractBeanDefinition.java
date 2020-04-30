@@ -66,6 +66,8 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 
 	/**
 	 * Constant that indicates no external autowiring at all.
+	 * <p>
+	 * 表示根本没有外部自动装配的常数
 	 *
 	 * @see #setAutowireMode
 	 */
@@ -73,6 +75,8 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 
 	/**
 	 * Constant that indicates autowiring bean properties by name.
+	 * <p>
+	 * 通过名称来自动装配Bean属性
 	 *
 	 * @see #setAutowireMode
 	 */
@@ -80,6 +84,8 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 
 	/**
 	 * Constant that indicates autowiring bean properties by type.
+	 * <p>
+	 * 通过类型来自动装配Bean属性
 	 *
 	 * @see #setAutowireMode
 	 */
@@ -87,6 +93,8 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 
 	/**
 	 * Constant that indicates autowiring a constructor.
+	 * <p>
+	 * 自动装配构造函数参数
 	 *
 	 * @see #setAutowireMode
 	 */
@@ -95,6 +103,8 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	/**
 	 * Constant that indicates determining an appropriate autowire strategy
 	 * through introspection of the bean class.
+	 * <p>
+	 * 指示通过内省bean类确定适当的自动装配策略的常数
 	 *
 	 * @see #setAutowireMode
 	 * @deprecated as of Spring 3.0: If you are using mixed autowiring strategies,
@@ -558,6 +568,7 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 		if (className == null) {
 			return null;
 		}
+		// 通过反射机制获取Class对象
 		Class<?> resolvedClass = ClassUtils.forName(className, classLoader);
 		this.beanClass = resolvedClass;
 		return resolvedClass;

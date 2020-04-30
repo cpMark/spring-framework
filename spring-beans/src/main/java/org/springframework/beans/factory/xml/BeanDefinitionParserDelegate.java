@@ -725,6 +725,9 @@ public class BeanDefinitionParserDelegate {
 	/**
 	 * Parse the given autowire attribute value into
 	 * {@link AbstractBeanDefinition} autowire constants.
+	 *
+	 * 将给定的自动装配属性值解析为{@link AbstractBeanDefinition}自动装配常量
+	 *
 	 */
 	@SuppressWarnings("deprecation")
 	public int getAutowireMode(String attrValue) {

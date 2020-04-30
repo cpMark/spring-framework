@@ -517,7 +517,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		// Make sure bean class is actually resolved at this point, and
 		// clone the bean definition in case of a dynamically resolved Class
 		// which cannot be stored in the shared merged bean definition.
-		//锁定class，根据设置的class属性或者根据beanName来解析class，生成Class对象
+		// 锁定class，根据设置的class属性或者根据beanName来解析class，生成Class对象
 		Class<?> resolvedClass = resolveBeanClass(mbd, beanName);
 		if (resolvedClass != null && !mbd.hasBeanClass() && mbd.getBeanClassName() != null) {
 			// 解析出来的Class对象不为空，且RootBeanDefinition没有指定BeanClass，
@@ -618,7 +618,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		// Eagerly cache singletons to be able to resolve circular references
 		// even when triggered by lifecycle interfaces like BeanFactoryAware.
-		//是否需要提早曝光：单例&允许循环依赖&当前bean正在创建中，检测循环依赖
+		// 是否需要提早曝光：单例&允许循环依赖&当前bean正在创建中，检测循环依赖
 		boolean earlySingletonExposure = (mbd.isSingleton() && this.allowCircularReferences &&
 				isSingletonCurrentlyInCreation(beanName));
 		if (earlySingletonExposure) {
@@ -1205,7 +1205,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 */
 	protected BeanWrapper createBeanInstance(String beanName, RootBeanDefinition mbd, @Nullable Object[] args) {
 		// Make sure bean class is actually resolved at this point.
-		//解析Class
+		// 解析Class
 		Class<?> beanClass = resolveBeanClass(mbd, beanName);
 
 		//没有访问权限
@@ -1250,7 +1250,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		}
 
 		// Candidate constructors for autowiring?
-		//需要根据参数解析构造函数
+		// 需要根据参数解析构造函数
 		Constructor<?>[] ctors = determineConstructorsFromBeanPostProcessors(beanClass, beanName);
 		if (ctors != null || mbd.getResolvedAutowireMode() == AUTOWIRE_CONSTRUCTOR ||
 				mbd.hasConstructorArgumentValues() || !ObjectUtils.isEmpty(args)) {
@@ -1266,7 +1266,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		}
 
 		// No special handling: simply use no-arg constructor.
-		//使用默认构造函数构造
+		// 使用默认构造函数构造
 		return instantiateBean(beanName, mbd);
 	}
 
@@ -1335,6 +1335,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	/**
 	 * Determine candidate constructors to use for the given bean, checking all registered
 	 * {@link SmartInstantiationAwareBeanPostProcessor SmartInstantiationAwareBeanPostProcessors}.
+	 *
+	 * 确定用于给定bean的候选构造函数，检查所有已注册的{@link SmartInstantiationAwareBeanPostProcessor}。
 	 *
 	 * @param beanClass the raw class of the bean
 	 * @param beanName  the name of the bean

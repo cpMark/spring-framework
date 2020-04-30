@@ -135,13 +135,13 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 
 	/**
 	 * Map between dependent bean names: bean name to Set of dependent bean names.
-	 * beanName到一组它所依赖的beanName集合之间的映射
+	 * 依赖的bean的名称->依赖于当前bean的bean名称
 	 */
 	private final Map<String, Set<String>> dependentBeanMap = new ConcurrentHashMap<>(64);
 
 	/**
 	 * Map between depending bean names: bean name to Set of bean names for the bean's dependencies.
-	 * 被依赖的beanName到依赖于它的beanName集合之间的映射
+	 * 当前的bean名称->它所依赖的bean名称集合之间的映射
 	 */
 	private final Map<String, Set<String>> dependenciesForBeanMap = new ConcurrentHashMap<>(64);
 
@@ -269,7 +269,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 				if (logger.isDebugEnabled()) {
 					logger.debug("Creating shared instance of singleton bean '" + beanName + "'");
 				}
-				//单例创建前的回调
+				//单例创建前的检查
 				beforeSingletonCreation(beanName);
 				boolean newSingleton = false;
 				boolean recordSuppressedExceptions = (this.suppressedExceptions == null);
@@ -277,7 +277,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 					this.suppressedExceptions = new LinkedHashSet<>();
 				}
 				try {
-					//初始化bean
+					//初始化bean——调用工厂的getObject获取实例对象
 					singletonObject = singletonFactory.getObject();
 					newSingleton = true;
 				} catch (IllegalStateException ex) {
@@ -327,6 +327,8 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 	/**
 	 * Remove the bean with the given name from the singleton cache of this factory,
 	 * to be able to clean up eager registration of a singleton if creation failed.
+	 * <p>
+	 * 从该工厂的单例缓存中删除具有给定名称的Bean，以便在创建失败时清除急于注册的单例
 	 *
 	 * @param beanName the name of the bean
 	 * @see #getSingletonMutex()
@@ -630,7 +632,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 		removeSingleton(beanName);
 
 		// Destroy the corresponding DisposableBean instance.
-		// 销毁相应的DisposableBean实例
+		// 获取beanName是否是一个DisposableBean实例
 		DisposableBean disposableBean;
 		synchronized (this.disposableBeans) {
 			disposableBean = (DisposableBean) this.disposableBeans.remove(beanName);
@@ -642,7 +644,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 	 * Destroy the given bean. Must destroy beans that depend on the given
 	 * bean before the bean itself. Should not throw any exceptions.
 	 * <p>
-	 * 回收特定的bean。在回收该bean之前，必须先回收依赖于这个bean的bean，不能抛出任何异常
+	 * 回收特定的bean。在回收该bean之前，必须先从依赖bean中回收掉依赖于这个bean的bean，不能抛出任何异常
 	 *
 	 * @param beanName the name of the bean
 	 * @param bean     the bean instance to destroy

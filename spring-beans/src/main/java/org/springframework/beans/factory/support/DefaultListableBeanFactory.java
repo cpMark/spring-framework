@@ -194,7 +194,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 
 	/**
 	 * List of bean definition names, in registration order.
-	 * BeanDefinition名称集合，按注册顺序
+	 * 已注册的BeanDefinition名称集合，按注册顺序
 	 */
 	private volatile List<String> beanDefinitionNames = new ArrayList<>(256);
 
@@ -206,6 +206,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 
 	/**
 	 * Cached array of bean definition names in case of frozen configuration.
+	 * 在冻结配置的情况下，bean定义名称的缓存数组
 	 */
 	@Nullable
 	private volatile String[] frozenBeanDefinitionNames;
@@ -936,7 +937,6 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		BeanDefinition existingDefinition = this.beanDefinitionMap.get(beanName);
 		if (existingDefinition != null) {
 			// 缓存对象不为空的逻辑
-
 			//当前beanName对应的BeanDefinition已存在，且不允许重写时，抛出异常
 			if (!isAllowBeanDefinitionOverriding()) {
 				throw new BeanDefinitionOverrideException(beanName, beanDefinition, existingDefinition);
@@ -968,10 +968,9 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			this.beanDefinitionMap.put(beanName, beanDefinition);
 		} else {
 			// 缓存对象为空时的逻辑
-
 			if (hasBeanCreationStarted()) {
 				// Cannot modify startup-time collection elements anymore (for stable iteration)
-				//因为beanDefinitionMap是全局变量，这里会存在并发访问的情况
+				// 因为beanDefinitionMap是全局变量，这里会存在并发访问的情况
 				synchronized (this.beanDefinitionMap) {
 					//存储对应关系，并保存该beanName
 					this.beanDefinitionMap.put(beanName, beanDefinition);

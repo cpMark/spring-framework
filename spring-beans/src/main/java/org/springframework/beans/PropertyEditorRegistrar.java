@@ -20,7 +20,7 @@ package org.springframework.beans;
  * Interface for strategies that register custom
  * {@link java.beans.PropertyEditor property editors} with a
  * {@link org.springframework.beans.PropertyEditorRegistry property editor registry}.
- *
+ * <p>
  * 使用属性编辑器注册器来注册自定义的属性编辑器的策略接口
  *
  * <p>This is particularly useful when you need to use the same set of
@@ -28,22 +28,26 @@ package org.springframework.beans;
  * registrar and reuse that in each case.
  *
  * @author Juergen Hoeller
- * @since 1.2.6
  * @see PropertyEditorRegistry
  * @see java.beans.PropertyEditor
+ * @since 1.2.6
  */
 public interface PropertyEditorRegistrar {
 
 	/**
 	 * Register custom {@link java.beans.PropertyEditor PropertyEditors} with
 	 * the given {@code PropertyEditorRegistry}.
+	 * <p>
+	 * 使用给定的{@code PropertyEditorRegistry}注册自定义{@link java.beans.PropertyEditor PropertyEditors}
+	 *
 	 * <p>The passed-in registry will usually be a {@link BeanWrapper} or a
 	 * {@link org.springframework.validation.DataBinder DataBinder}.
 	 * <p>It is expected that implementations will create brand new
 	 * {@code PropertyEditors} instances for each invocation of this
 	 * method (since {@code PropertyEditors} are not threadsafe).
+	 *
 	 * @param registry the {@code PropertyEditorRegistry} to register the
-	 * custom {@code PropertyEditors} with
+	 *                 custom {@code PropertyEditors} with
 	 */
 	void registerCustomEditors(PropertyEditorRegistry registry);
 

@@ -1434,7 +1434,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	 * Remove the merged bean definition for the specified bean,
 	 * recreating it on next access.
 	 * <p>
-	 * 删除指定bean的合并BeanDefinition，下次访问时重新创建
+	 * 删除指定bean名称的合并BeanDefinition，下次访问时重新创建
 	 *
 	 * @param beanName the bean name to clear the merged definition for
 	 */
@@ -1475,7 +1475,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 
 		try {
 			if (mbd.hasBeanClass()) {
-				// 如果当前RootBeanDefinition记录了BeanClass则直接返回
+				// 如果当前RootBeanDefinition记录了BeanClass则直接返回——要求beanClass是一个Class对象
 				return mbd.getBeanClass();
 			}
 			if (System.getSecurityManager() != null) {
@@ -1827,6 +1827,8 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 
 	/**
 	 * Determine whether the given bean requires destruction on shutdown.
+	 * <p>
+	 * 确定给定的b​​ean是否需要在关机时销毁
 	 * <p>The default implementation checks the DisposableBean interface as well as
 	 * a specified destroy method and registered DestructionAwareBeanPostProcessors.
 	 *

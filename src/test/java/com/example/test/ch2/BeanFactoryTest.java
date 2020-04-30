@@ -10,8 +10,8 @@ public class BeanFactoryTest {
 
 	@Test
 	public void testSimpleLoad(){
-		BeanFactory bf = new XmlBeanFactory(new ClassPathResource("test-string.xml"));
-		MyTestBean bean = (MyTestBean) bf.getBean("myTestBean");
-		assert bean.getTestStr().equals("testStr");
+		XmlBeanFactory bf = new XmlBeanFactory(new ClassPathResource("test-string.xml"));
+		Student bean = (Student) bf.getBean("student");
+		bf.destroySingletons();
 	}
 }
