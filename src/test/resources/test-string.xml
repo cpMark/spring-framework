@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+>
 
 	<import resource="user-msg.xml"/>
 
-	<bean id="myTestBean" class="com.example.test.ch2.MyTestBean"/>
-	<bean name="people" class="com.example.test.ch2.People"/>
+	<bean id="myTestBean" name="myTestBeanA,myTestBeanB" class="com.example.test.ch2.MyTestBean" >
+		<constructor-arg index="1" ref="user" />
+		<constructor-arg index="0" value="cc" />
+	</bean>
 
-	<bean id="student" class="com.example.test.ch2.Student">
-		<constructor-arg ref="user"/>
+	<bean id="student" class="com.example.test.ch2.Student" parent="user" primary="true">
 		<constructor-arg value="80"/>
 		<constructor-arg ref="people"/>
 	</bean>
+
+	<alias name="student" alias="studentA,studentB,studentC"/>
 
 </beans>

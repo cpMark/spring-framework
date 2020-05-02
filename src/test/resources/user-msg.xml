@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+>
 
-	<bean name="user" class="com.example.test.ch2.User"/>
+	<bean name="people" class="com.example.test.ch2.People"
+		  destroy-method="destroy" factory-method="generatePeopleObj" lazy-init="true"/>
+
+	<bean name="user" class="com.example.test.ch2.User"
+		  init-method="changeInitParam" depends-on="people">
+		<property name="id" value="001"/>
+		<property name="name" value="cp"/>
+	</bean>
 
 </beans>

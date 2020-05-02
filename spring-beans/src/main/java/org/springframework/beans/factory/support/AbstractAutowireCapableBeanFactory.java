@@ -598,6 +598,10 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		}
 		final Object bean = instanceWrapper.getWrappedInstance();
 		Class<?> beanType = instanceWrapper.getWrappedClass();
+
+		System.out.println("---------------------已经实例化了");
+		System.out.println(bean);
+
 		if (beanType != NullBean.class) {
 			mbd.resolvedTargetType = beanType;
 		}
@@ -641,8 +645,14 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		try {
 			//对bean进行填充，将各个属性值注入，其中，可能存在依赖于其他bean的属性，则会递归初始化依赖bean
 			populateBean(beanName, mbd, instanceWrapper);
+
+			System.out.println("---------------填充属性之后");
+			System.out.println(bean);
+
 			//调用初始化方法，比如：init-method
 			exposedObject = initializeBean(beanName, exposedObject, mbd);
+			System.out.println("---------------调用初始化方法之后");
+			System.out.println(bean);
 		} catch (Throwable ex) {
 			if (ex instanceof BeanCreationException && beanName.equals(((BeanCreationException) ex).getBeanName())) {
 				throw (BeanCreationException) ex;

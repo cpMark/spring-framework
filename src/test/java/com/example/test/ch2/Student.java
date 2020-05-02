@@ -2,9 +2,7 @@ package com.example.test.ch2;
 
 import org.springframework.beans.factory.DisposableBean;
 
-public class Student implements DisposableBean {
-
-	private User user;
+public class Student extends User implements DisposableBean {
 
 	private Integer score;
 
@@ -26,19 +24,10 @@ public class Student implements DisposableBean {
 		this.score = score;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	public Student() {
 	}
 
-	public Student(User user, Integer score,People people) {
-		this.user = user;
+	public Student(Integer score,People people) {
 		this.score = score;
 		this.people = people;
 	}
@@ -46,5 +35,13 @@ public class Student implements DisposableBean {
 	@Override
 	public void destroy() throws Exception {
 		System.out.println("student销毁了----------------");
+	}
+
+	@Override
+	public String toString() {
+		return "Student{" +
+				"score=" + score +
+				", people=" + people +
+				'}';
 	}
 }

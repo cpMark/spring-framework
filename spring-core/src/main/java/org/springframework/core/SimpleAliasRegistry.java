@@ -82,7 +82,7 @@ public class SimpleAliasRegistry implements AliasRegistry {
 								registeredName + "' with new target name '" + name + "'");
 					}
 				}
-				//检查别名的循环引用——正常是从alias->beanName，这里检查以下beanName->alias是否存在
+				//检查别名的循环引用——正常是从alias->beanName，这里检查一下beanName->alias是否存在
 				checkForAliasCircle(name, alias);
 				this.aliasMap.put(alias, name);
 				if (logger.isTraceEnabled()) {

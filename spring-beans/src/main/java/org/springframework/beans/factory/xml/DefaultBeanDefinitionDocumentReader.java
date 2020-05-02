@@ -227,9 +227,9 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	 * from the given resource into the bean factory.
 	 */
 	protected void importBeanDefinitionResource(Element ele) {
-		//获取resource属性
+		// 获取resource属性
 		String location = ele.getAttribute(RESOURCE_ATTRIBUTE);
-		//如果不存在resource属性则不做任何处理
+		// 如果不存在resource属性则不做任何处理
 		if (!StringUtils.hasText(location)) {
 			getReaderContext().error("Resource location must not be empty", ele);
 			return;
@@ -242,7 +242,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		Set<Resource> actualResources = new LinkedHashSet<>(4);
 
 		// Discover whether the location is an absolute or relative URI
-		//判定location是绝对URI还是相对URI
+		// 判定location是绝对URI还是相对URI
 		boolean absoluteLocation = false;
 		try {
 			absoluteLocation = ResourcePatternUtils.isUrl(location) || ResourceUtils.toURI(location).isAbsolute();
@@ -252,7 +252,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		}
 
 		// Absolute or relative?
-		//如果是绝对URI则直接根据地址加载对应的配置文件
+		// 如果是绝对URI则直接根据地址加载对应的配置文件
 		if (absoluteLocation) {
 			try {
 				//加载配置文件中的BeanDefinition，并返回加载的个数
@@ -265,7 +265,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 						"Failed to import bean definitions from URL location [" + location + "]", ele, ex);
 			}
 		}
-		//如果是相对地址则根据相对地址计算出绝对地址
+		// 如果是相对地址则根据相对地址计算出绝对地址
 		else {
 			// No URL -> considering resource location as relative to the current file.
 			try {
@@ -330,22 +330,22 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	 * and registering it with the registry.
 	 */
 	protected void processBeanDefinition(Element ele, BeanDefinitionParserDelegate delegate) {
-		//delegate为BeanDefinitionParserDelegate对象
-		//delegate解析元素，生成BeanDefinitionHolder对象
+		// delegate为BeanDefinitionParserDelegate对象
+		// 代理解析元素，生成BeanDefinitionHolder对象
 		BeanDefinitionHolder bdHolder = delegate.parseBeanDefinitionElement(ele);
 		if (bdHolder != null) {
-			//处理bean下的自定义子属性
+			// 处理bean下的自定义子属性
 			bdHolder = delegate.decorateBeanDefinitionIfRequired(ele, bdHolder);
 			try {
 				// Register the final decorated instance.
-				//使用BeanDefinitionReaderUtils注册dbHolder
+				// 使用BeanDefinitionReaderUtils注册dbHolder
 				BeanDefinitionReaderUtils.registerBeanDefinition(bdHolder, getReaderContext().getRegistry());
 			} catch (BeanDefinitionStoreException ex) {
 				getReaderContext().error("Failed to register bean definition with name '" +
 						bdHolder.getBeanName() + "'", ele, ex);
 			}
 			// Send registration event.
-			//触发组件注册事件
+			// 触发组件注册事件
 			getReaderContext().fireComponentRegistered(new BeanComponentDefinition(bdHolder));
 		}
 	}
