@@ -4,13 +4,20 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
 >
 
-	<bean name="people" class="com.example.test.ch2.People"
-		  destroy-method="destroy" factory-method="generatePeopleObj" lazy-init="true"/>
+	<description>用户类相关</description>
+
+	<bean id="userLookupMethod" class="com.example.test.ch2.UserLookupMethodTest"/>
 
 	<bean name="user" class="com.example.test.ch2.User"
 		  init-method="changeInitParam" depends-on="people">
 		<property name="id" value="001"/>
 		<property name="name" value="cp"/>
+		<meta key="a" value="1"/>
+		<meta key="b" value="2"/>
+		<meta key="c" value="3"/>
+		<lookup-method name="lookupMethod" bean="userLookupMethod"/>
 	</bean>
 
+	<bean name="people" class="com.example.test.ch2.People"
+		  destroy-method="destroy" factory-method="generatePeopleObj" lazy-init="true"/>
 </beans>

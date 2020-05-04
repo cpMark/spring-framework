@@ -27,6 +27,8 @@ import org.springframework.util.StringUtils;
 /**
  * Support class for {@link AttributeAccessor AttributeAccessors}, providing
  * a base implementation of all methods. To be extended by subclasses.
+ * <p>
+ * {@link AttributeAccessor AttributeAccessors}的支持类，提供所有方法的基本实现。由子类扩展。
  *
  * <p>{@link Serializable} if subclasses and all attribute values are {@link Serializable}.
  *
@@ -37,7 +39,11 @@ import org.springframework.util.StringUtils;
 @SuppressWarnings("serial")
 public abstract class AttributeAccessorSupport implements AttributeAccessor, Serializable {
 
-	/** Map with String keys and Object values. */
+	/**
+	 * Map with String keys and Object values.
+	 * <p>
+	 * 字符串key和Object对象的映射
+	 */
 	private final Map<String, Object> attributes = new LinkedHashMap<>();
 
 
@@ -46,8 +52,7 @@ public abstract class AttributeAccessorSupport implements AttributeAccessor, Ser
 		Assert.notNull(name, "Name must not be null");
 		if (value != null) {
 			this.attributes.put(name, value);
-		}
-		else {
+		} else {
 			removeAttribute(name);
 		}
 	}
@@ -80,6 +85,7 @@ public abstract class AttributeAccessorSupport implements AttributeAccessor, Ser
 
 	/**
 	 * Copy the attributes from the supplied AttributeAccessor to this accessor.
+	 *
 	 * @param source the AttributeAccessor to copy from
 	 */
 	protected void copyAttributesFrom(AttributeAccessor source) {

@@ -42,4 +42,18 @@ public class User {
 		this.name = "ccc";
 	}
 
+	/**
+	 * 被lookup-method标签替换前的原始方法
+	 */
+	public void lookupMethod(){
+		System.out.println("I am original lookup method!!!!");
+	}
+	
+	/**
+	 * 被replaced-method标签替换前的原始方法
+	 */
+	public void replacedMethod(){
+		System.out.println("i am original replaced method!!!");
+	}
+
 }

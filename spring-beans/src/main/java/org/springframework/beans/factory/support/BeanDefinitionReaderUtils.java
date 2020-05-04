@@ -31,9 +31,9 @@ import org.springframework.util.StringUtils;
  *
  * @author Juergen Hoeller
  * @author Rob Harrop
- * @since 1.1
  * @see PropertiesBeanDefinitionReader
  * @see org.springframework.beans.factory.xml.DefaultBeanDefinitionDocumentReader
+ * @since 1.1
  */
 public abstract class BeanDefinitionReaderUtils {
 
@@ -47,27 +47,30 @@ public abstract class BeanDefinitionReaderUtils {
 	/**
 	 * Create a new GenericBeanDefinition for the given parent name and class name,
 	 * eagerly loading the bean class if a ClassLoader has been specified.
-	 * @param parentName the name of the parent bean, if any
-	 * @param className the name of the bean class, if any
+	 * <p>
+	 * 使用给定的class名称和parent名称创建一个新的{@link GenericBeanDefinition}实例，
+	 * 如果已指定ClassLoader，则直接加载对应的Class，生成Class对象
+	 *
+	 * @param parentName  the name of the parent bean, if any
+	 * @param className   the name of the bean class, if any
 	 * @param classLoader the ClassLoader to use for loading bean classes
-	 * (can be {@code null} to just register bean classes by name)
+	 *                    (can be {@code null} to just register bean classes by name)
 	 * @return the bean definition
 	 * @throws ClassNotFoundException if the bean class could not be loaded
 	 */
 	public static AbstractBeanDefinition createBeanDefinition(
 			@Nullable String parentName, @Nullable String className, @Nullable ClassLoader classLoader) throws ClassNotFoundException {
 
-		//创建GenericBeanDefinition对象
+		// 创建GenericBeanDefinition对象
 		GenericBeanDefinition bd = new GenericBeanDefinition();
 
-		//设置parentName属性，可能为空
+		// 设置parentName属性，可能为空
 		bd.setParentName(parentName);
 		if (className != null) {
-			//如果classLoader不为空，则使用传入的classLoader来加载Class信息，否则只记录className
+			// 如果classLoader不为空，则使用传入的classLoader来加载Class信息，否则只记录className
 			if (classLoader != null) {
 				bd.setBeanClass(ClassUtils.forName(className, classLoader));
-			}
-			else {
+			} else {
 				bd.setBeanClassName(className);
 			}
 		}
@@ -77,12 +80,13 @@ public abstract class BeanDefinitionReaderUtils {
 	/**
 	 * Generate a bean name for the given top-level bean definition,
 	 * unique within the given bean factory.
+	 *
 	 * @param beanDefinition the bean definition to generate a bean name for
-	 * @param registry the bean factory that the definition is going to be
-	 * registered with (to check for existing bean names)
+	 * @param registry       the bean factory that the definition is going to be
+	 *                       registered with (to check for existing bean names)
 	 * @return the generated bean name
 	 * @throws BeanDefinitionStoreException if no unique name can be generated
-	 * for the given bean definition
+	 *                                      for the given bean definition
 	 * @see #generateBeanName(BeanDefinition, BeanDefinitionRegistry, boolean)
 	 */
 	public static String generateBeanName(BeanDefinition beanDefinition, BeanDefinitionRegistry registry)
@@ -94,18 +98,18 @@ public abstract class BeanDefinitionReaderUtils {
 	/**
 	 * Generate a bean name for the given bean definition, unique within the
 	 * given bean factory.
-	 *
+	 * <p>
 	 * 为给定的BeanDefinition生成一个beanName，在给定的BeanFactory中是唯一的
 	 *
-	 * @param definition the bean definition to generate a bean name for
-	 * @param registry the bean factory that the definition is going to be
-	 * registered with (to check for existing bean names)
+	 * @param definition  the bean definition to generate a bean name for
+	 * @param registry    the bean factory that the definition is going to be
+	 *                    registered with (to check for existing bean names)
 	 * @param isInnerBean whether the given bean definition will be registered
-	 * as inner bean or as top-level bean (allowing for special name generation
-	 * for inner beans versus top-level beans)
+	 *                    as inner bean or as top-level bean (allowing for special name generation
+	 *                    for inner beans versus top-level beans)
 	 * @return the generated bean name
 	 * @throws BeanDefinitionStoreException if no unique name can be generated
-	 * for the given bean definition
+	 *                                      for the given bean definition
 	 */
 	public static String generateBeanName(
 			BeanDefinition definition, BeanDefinitionRegistry registry, boolean isInnerBean)
@@ -117,8 +121,7 @@ public abstract class BeanDefinitionReaderUtils {
 			// 如果parentName为空，但是factoryBeanName不为空，则当前BeanDefinition的beanName为——parentName+$created
 			if (definition.getParentName() != null) {
 				generatedBeanName = definition.getParentName() + "$child";
-			}
-			else if (definition.getFactoryBeanName() != null) {
+			} else if (definition.getFactoryBeanName() != null) {
 				generatedBeanName = definition.getFactoryBeanName() + "$created";
 			}
 		}
@@ -132,8 +135,7 @@ public abstract class BeanDefinitionReaderUtils {
 			// Inner bean: generate identity hashcode suffix.
 			// 内部bean：生成哈希码后缀标识
 			id = generatedBeanName + GENERATED_BEAN_NAME_SEPARATOR + ObjectUtils.getIdentityHexString(definition);
-		}
-		else {
+		} else {
 			// Top-level bean: use plain class name with unique suffix if necessary.
 			// 顶级bean：如果有需要，使用带有唯一后缀的普通类名
 			return uniqueBeanName(generatedBeanName, registry);
@@ -144,9 +146,10 @@ public abstract class BeanDefinitionReaderUtils {
 	/**
 	 * Turn the given bean name into a unique bean name for the given bean factory,
 	 * appending a unique counter as suffix if necessary.
+	 *
 	 * @param beanName the original bean name
 	 * @param registry the bean factory that the definition is going to be
-	 * registered with (to check for existing bean names)
+	 *                 registered with (to check for existing bean names)
 	 * @return the unique bean name to use
 	 * @since 5.1
 	 */
@@ -165,8 +168,11 @@ public abstract class BeanDefinitionReaderUtils {
 
 	/**
 	 * Register the given bean definition with the given bean factory.
+	 * <p>
+	 * 向给定的bean工厂注册给定的bean定义.
+	 *
 	 * @param definitionHolder the bean definition including name and aliases
-	 * @param registry the bean factory to register with
+	 * @param registry         the bean factory to register with
 	 * @throws BeanDefinitionStoreException if registration failed
 	 */
 	public static void registerBeanDefinition(
@@ -192,11 +198,12 @@ public abstract class BeanDefinitionReaderUtils {
 	/**
 	 * Register the given bean definition with a generated name,
 	 * unique within the given bean factory.
+	 *
 	 * @param definition the bean definition to generate a bean name for
-	 * @param registry the bean factory to register with
+	 * @param registry   the bean factory to register with
 	 * @return the generated bean name
 	 * @throws BeanDefinitionStoreException if no unique name can be generated
-	 * for the given bean definition or the definition cannot be registered
+	 *                                      for the given bean definition or the definition cannot be registered
 	 */
 	public static String registerWithGeneratedName(
 			AbstractBeanDefinition definition, BeanDefinitionRegistry registry)

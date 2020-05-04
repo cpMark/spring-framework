@@ -126,12 +126,15 @@ public class RootBeanDefinition extends AbstractBeanDefinition {
 
 	/**
 	 * Package-visible field that indicates MergedBeanDefinitionPostProcessor having been applied.
+	 * <p>
 	 * 包可见字段，指示MergedBeanDefinitionPostProcessor已经被应用
 	 */
 	boolean postProcessed = false;
 
 	/**
 	 * Package-visible field that indicates a before-instantiation post-processor having kicked in.
+	 * <p>
+	 * 包可见字段，指示已启动实例化前的后处理器
 	 */
 	@Nullable
 	volatile Boolean beforeInstantiationResolved;

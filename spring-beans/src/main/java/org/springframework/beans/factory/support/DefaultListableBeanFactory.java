@@ -923,9 +923,9 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 
 		if (beanDefinition instanceof AbstractBeanDefinition) {
 			try {
-				//注册前的最后一次校验，这里的校验不是校验XML文件，主要是对AbstractBeanDefinition属性中
-				//methodOverrides校验，校验methodOverrides是否与工厂方法并存或者methodOverrides对应
-				//的方法根本不存在
+				// 注册前的最后一次校验，这里的校验不是校验XML文件，主要是对AbstractBeanDefinition属性中
+				// methodOverrides校验，校验methodOverrides是否与工厂方法并存或者methodOverrides对应
+				// 的方法根本不存在
 				((AbstractBeanDefinition) beanDefinition).validate();
 			} catch (BeanDefinitionValidationException ex) {
 				throw new BeanDefinitionStoreException(beanDefinition.getResourceDescription(), beanName,
@@ -933,15 +933,15 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			}
 		}
 
-		//获取当前beanName缓存的BeanDefinition实例
+		// 从缓存中获取当前beanName对应的BeanDefinition实例
 		BeanDefinition existingDefinition = this.beanDefinitionMap.get(beanName);
 		if (existingDefinition != null) {
 			// 缓存对象不为空的逻辑
-			//当前beanName对应的BeanDefinition已存在，且不允许重写时，抛出异常
+			// 当前beanName对应的BeanDefinition已存在，且不允许重写时，抛出异常
 			if (!isAllowBeanDefinitionOverriding()) {
 				throw new BeanDefinitionOverrideException(beanName, beanDefinition, existingDefinition);
 			}
-			//新的BeanDefinition扮演的角色大于已有的BeanDefinition角色，即系统应用或者复杂配置的一部分会覆盖用户定义的实例
+			// 新的BeanDefinition扮演的角色大于已有的BeanDefinition角色，即系统应用或者复杂配置的一部分会覆盖用户定义的实例
 			else if (existingDefinition.getRole() < beanDefinition.getRole()) {
 				// e.g. was ROLE_APPLICATION, now overriding with ROLE_SUPPORT or ROLE_INFRASTRUCTURE
 				if (logger.isInfoEnabled()) {
@@ -950,7 +950,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 							existingDefinition + "] with [" + beanDefinition + "]");
 				}
 			}
-			//新的实例和已有的缓存实例不一致
+			// 新的实例和已有的缓存实例不一致
 			else if (!beanDefinition.equals(existingDefinition)) {
 				if (logger.isDebugEnabled()) {
 					logger.debug("Overriding bean definition for bean '" + beanName +
@@ -964,7 +964,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 							"] with [" + beanDefinition + "]");
 				}
 			}
-			//使用新的BeanDefinition替换已有的缓存对象
+			// 使用新的BeanDefinition替换已有的缓存对象
 			this.beanDefinitionMap.put(beanName, beanDefinition);
 		} else {
 			// 缓存对象为空时的逻辑
@@ -972,7 +972,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 				// Cannot modify startup-time collection elements anymore (for stable iteration)
 				// 因为beanDefinitionMap是全局变量，这里会存在并发访问的情况
 				synchronized (this.beanDefinitionMap) {
-					//存储对应关系，并保存该beanName
+					// 存储对应关系，并保存该beanName
 					this.beanDefinitionMap.put(beanName, beanDefinition);
 					// beanDefinitionNames中的记录——保存当前beanName
 					List<String> updatedDefinitions = new ArrayList<>(this.beanDefinitionNames.size() + 1);
@@ -991,7 +991,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			this.frozenBeanDefinitionNames = null;
 		}
 
-		//重置所有beanName对应的缓存
+		// 重置所有beanName对应的缓存
 		if (existingDefinition != null || containsSingleton(beanName)) {
 			resetBeanDefinition(beanName);
 		}
@@ -1048,7 +1048,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		// Remove corresponding bean from singleton cache, if any. Shouldn't usually
 		// be necessary, rather just meant for overriding a context's default beans
 		// (e.g. the default StaticMessageSource in a StaticApplicationContext).
-		//  从单例缓存中删除对应的bean（如果存在）
+		// 从单例缓存中删除对应的bean（如果存在）
 		destroySingleton(beanName);
 
 		// Notify all post-processors that the specified bean definition has been reset.

@@ -12,9 +12,10 @@ public class BeanFactoryTest {
 	@Test
 	public void testSimpleLoad() {
 		XmlBeanFactory bf = new XmlBeanFactory(new ClassPathResource("test-string.xml"));
-		Student bean = (Student) bf.getBean("student");
-		MyTestBean myTestBean = (MyTestBean) bf.getBean("myTestBean");
-		User user = (User) bf.getBean(User.class);
+//		Student bean = (Student) bf.getBean("student");
+//		MyTestBean myTestBean = (MyTestBean) bf.getBean("myTestBean");
+//		User user = (User) bf.getBean(User.class);
+		User user = (User) bf.getBean("user");
 		bf.destroySingletons();
 	}
 }
