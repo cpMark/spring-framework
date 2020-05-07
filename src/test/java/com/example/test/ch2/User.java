@@ -1,6 +1,8 @@
 package com.example.test.ch2;
 
-public class User {
+import org.springframework.beans.factory.InitializingBean;
+
+public class User implements InitializingBean {
 
 	private String id;
 
@@ -40,6 +42,7 @@ public class User {
 
 	public void changeInitParam() {
 		this.name = "ccc";
+		System.out.println("回调了定义的init-method属性的初始化方法");
 	}
 
 	/**
@@ -56,4 +59,8 @@ public class User {
 		System.out.println("i am original replaced method!!!");
 	}
 
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		System.out.println("回调了InitializingBean#afterPropertiesSet");
+	}
 }

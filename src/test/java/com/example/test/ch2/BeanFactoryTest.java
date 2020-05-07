@@ -15,6 +15,8 @@ public class BeanFactoryTest {
 //		Student bean = (Student) bf.getBean("student");
 //		MyTestBean myTestBean = (MyTestBean) bf.getBean("myTestBean");
 //		User user = (User) bf.getBean(User.class);
+
+		bf.addBeanPostProcessor(new UserBeanPostProcessor());
 		User user = (User) bf.getBean("user");
 		bf.destroySingletons();
 	}

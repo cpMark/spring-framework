@@ -411,9 +411,11 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 					// It's a prototype -> create a new instance.
 					Object prototypeInstance = null;
 					try {
+						// 记录当前正在创建的原型
 						beforePrototypeCreation(beanName);
 						prototypeInstance = createBean(beanName, mbd, args);
 					} finally {
+						// 从记录的正在创建的原型中移除已创建完毕的beanName
 						afterPrototypeCreation(beanName);
 					}
 					bean = getObjectForBeanInstance(prototypeInstance, name, beanName, mbd);
@@ -948,6 +950,8 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	/**
 	 * Return whether this factory holds a InstantiationAwareBeanPostProcessor
 	 * that will get applied to singleton beans on shutdown.
+	 * <p>
+	 * 返回此工厂是否拥有InstantiationAwareBeanPostProcessor，它将在关机时应用于单例bean
 	 *
 	 * @see #addBeanPostProcessor
 	 * @see org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor
@@ -1774,12 +1778,12 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		// Don't let calling code try to dereference the factory if the bean isn't a factory.
 		// 判断指定的name是否是工厂相关（以&为前缀）
 		if (BeanFactoryUtils.isFactoryDereference(name)) {
-			//如果beanInstance是空对象则直接返回
+			// 如果beanInstance是空对象则直接返回
 			if (beanInstance instanceof NullBean) {
 				return beanInstance;
 			}
 
-			//beanInstance不是FactoryBean类型则验证不通过
+			// beanInstance不是FactoryBean类型则验证不通过——因为name为工厂name
 			if (!(beanInstance instanceof FactoryBean)) {
 				throw new BeanIsNotAFactoryException(beanName, beanInstance.getClass());
 			}
@@ -1788,19 +1792,19 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		// Now we have the bean instance, which may be a normal bean or a FactoryBean.
 		// If it's a FactoryBean, we use it to create a bean instance, unless the
 		// caller actually wants a reference to the factory.
-		//现在我们有了一个bean实例，它可能是正常的bean，也可能是一个FactoryBean实例
-		//如果它是一个FactoryBean实例，我们可以使用它来创建实例。但是如果调用者想要直接获取工厂实例而不是工厂的getObject方法返回的实例，那么传入的name应该加前缀&
+		// 现在我们有了一个bean实例，它可能是正常的bean，也可能是一个FactoryBean实例
+		// 如果它是一个FactoryBean实例，我们可以使用它来创建实例。但是如果调用者想要直接获取工厂实例而不是工厂的getObject方法返回的实例，那么传入的name应该加前缀&
 
-		//如果当前获取到的实例beanInstance不是FactoryBean直接返回beanInstance实例
-		//如果当前传入的name属性以&开头则直接返回beanInstance
+		// 如果当前获取到的实例beanInstance不是FactoryBean直接返回beanInstance实例
+		// 如果当前传入的name属性以&开头则直接返回beanInstance
 		if (!(beanInstance instanceof FactoryBean) || BeanFactoryUtils.isFactoryDereference(name)) {
 			return beanInstance;
 		}
 
-		//加载FactoryBean
+		// 加载FactoryBean
 		Object object = null;
 		if (mbd == null) {
-			//尝试从缓存中加载bean
+			// 尝试从缓存中加载bean
 			object = getCachedObjectForFactoryBean(beanName);
 		}
 		if (object == null) {
@@ -1813,9 +1817,9 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 				mbd = getMergedLocalBeanDefinition(beanName);
 			}
 
-			//判断是用户定义的还是应用程序本身定义的
+			// 判断是用户定义的还是应用程序本身定义的
 			boolean synthetic = (mbd != null && mbd.isSynthetic());
-			//真正从FactoryBean中获取对象的逻辑
+			// 真正从FactoryBean中获取对象的逻辑
 			object = getObjectFromFactoryBean(factory, beanName, !synthetic);
 		}
 		return object;
@@ -1855,6 +1859,9 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	 * Add the given bean to the list of disposable beans in this factory,
 	 * registering its DisposableBean interface and/or the given destroy method
 	 * to be called on factory shutdown (if applicable). Only applies to singletons.
+	 * <p>
+	 * 将给定的bean添加到该工厂的一次性bean列表中，注册其DisposableBean接口和/或给定的destroy方法在工厂关闭时调用（如果适用）。
+	 * 仅适用于单例
 	 *
 	 * @param beanName the name of the bean
 	 * @param bean     the bean instance
@@ -1866,18 +1873,19 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	 */
 	protected void registerDisposableBeanIfNecessary(String beanName, Object bean, RootBeanDefinition mbd) {
 		AccessControlContext acc = (System.getSecurityManager() != null ? getAccessControlContext() : null);
+		// 非原型且有销毁回收方法时执行
 		if (!mbd.isPrototype() && requiresDestruction(bean, mbd)) {
 			if (mbd.isSingleton()) {
 				// Register a DisposableBean implementation that performs all destruction
 				// work for the given bean: DestructionAwareBeanPostProcessors,
 				// DisposableBean interface, custom destroy method.
-				//单例模式下注册需要销毁的bean，此方法中会处理实现DisposableBean的bean，
-				//并且对所有的bean使用DestructionAwareBeanPostProcessors处理DisposableBean
+				// 单例模式下注册需要销毁的bean，此方法中会处理实现DisposableBean的bean，
+				// 并且对所有的bean使用DestructionAwareBeanPostProcessors处理DisposableBean
 				registerDisposableBean(beanName,
 						new DisposableBeanAdapter(bean, beanName, mbd, getBeanPostProcessors(), acc));
 			} else {
 				// A bean with a custom scope...
-				//自定义scope的处理
+				// 自定义scope的处理
 				Scope scope = this.scopes.get(mbd.getScope());
 				if (scope == null) {
 					throw new IllegalStateException("No Scope registered for scope name '" + mbd.getScope() + "'");

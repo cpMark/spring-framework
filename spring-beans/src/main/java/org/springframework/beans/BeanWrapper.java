@@ -88,6 +88,8 @@ public interface BeanWrapper extends ConfigurablePropertyAccessor {
 	/**
 	 * Obtain the property descriptor for a specific property
 	 * of the wrapped object.
+	 * <p>
+	 * 获取包装对象的特定属性的属性描述符
 	 *
 	 * @param propertyName the property to obtain the descriptor for
 	 *                     (may be a nested path, but no indexed/mapped property)

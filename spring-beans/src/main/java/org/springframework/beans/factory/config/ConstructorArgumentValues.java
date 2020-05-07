@@ -285,6 +285,8 @@ public class ConstructorArgumentValues {
 	 * Look for the next generic argument value that matches the given type,
 	 * ignoring argument values that have already been used in the current
 	 * resolution process.
+	 * <p>
+	 * 寻找与给定类型匹配的下一个通用参数值，而忽略当前解析过程中已使用的参数值
 	 *
 	 * @param requiredType     the type to match (can be {@code null} to find
 	 *                         an arbitrary next generic argument value)
@@ -358,6 +360,8 @@ public class ConstructorArgumentValues {
 	/**
 	 * Look for an argument value that either corresponds to the given index
 	 * in the constructor argument list or generically matches by type.
+	 * <p>
+	 * 在构造函数参数列表中查找与给定索引对应或按类型匹配的参数值
 	 *
 	 * @param index            the index in the constructor argument list
 	 * @param requiredType     the parameter type to match (can be {@code null}
@@ -383,6 +387,8 @@ public class ConstructorArgumentValues {
 	/**
 	 * Return the number of argument values held in this instance,
 	 * counting both indexed and generic argument values.
+	 * <p>
+	 * 返回此实例中保存的参数值的数量，同时计算索引参数值和通用参数值
 	 */
 	public int getArgumentCount() {
 		return (this.indexedArgumentValues.size() + this.genericArgumentValues.size());
@@ -454,6 +460,8 @@ public class ConstructorArgumentValues {
 	/**
 	 * Holder for a constructor argument value, with an optional type
 	 * attribute indicating the target type of the actual constructor argument.
+	 * <p>
+	 * 构造函数参数值的持有者，带有可选的属性，指示实际构造函数参数的目标类型
 	 */
 	public static class ValueHolder implements BeanMetadataElement {
 
@@ -571,6 +579,8 @@ public class ConstructorArgumentValues {
 		/**
 		 * Return whether this holder contains a converted value already ({@code true}),
 		 * or whether the value still needs to be converted ({@code false}).
+		 * <p>
+		 * 返回此持有者是否已包含转换后的值，是则返回true，反之为false
 		 */
 		public synchronized boolean isConverted() {
 			return this.converted;

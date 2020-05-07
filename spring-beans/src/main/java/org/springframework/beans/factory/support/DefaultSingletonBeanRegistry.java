@@ -167,6 +167,9 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 
 	/**
 	 * Add the given singleton object to the singleton cache of this factory.
+	 * <p>
+	 * 将给定的单例对象添加到该工厂的单例缓存中
+	 *
 	 * <p>To be called for eager registration of singletons.
 	 *
 	 * @param beanName        the name of the bean
@@ -184,6 +187,9 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 	/**
 	 * Add the given singleton factory for building the specified singleton
 	 * if necessary.
+	 * <p>
+	 * 将给定的单例工厂添加到缓存中
+	 *
 	 * <p>To be called for eager registration of singletons, e.g. to be able to
 	 * resolve circular references.
 	 *
@@ -423,7 +429,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 	 * @see #isSingletonCurrentlyInCreation
 	 */
 	protected void afterSingletonCreation(String beanName) {
-		//如果当前beanName不在创建检查排除中，且从当前正在创建中的缓存移除失败，则抛出异常
+		// 如果当前beanName不在创建检查排除中，且从当前正在创建中的缓存移除失败，则抛出异常
 		if (!this.inCreationCheckExclusions.contains(beanName) && !this.singletonsCurrentlyInCreation.remove(beanName)) {
 			throw new IllegalStateException("Singleton '" + beanName + "' isn't currently in creation");
 		}
@@ -432,6 +438,9 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 
 	/**
 	 * Add the given bean to the list of disposable beans in this registry.
+	 * <p>
+	 * 将给定的bean添加到此注册表中的一次性bean列表中
+	 *
 	 * <p>Disposable beans usually correspond to registered singletons,
 	 * matching the bean name but potentially being a different instance
 	 * (for example, a DisposableBean adapter for a singleton that does not

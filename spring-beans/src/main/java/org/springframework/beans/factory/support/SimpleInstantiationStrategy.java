@@ -106,8 +106,8 @@ public class SimpleInstantiationStrategy implements InstantiationStrategy {
 	public Object instantiate(RootBeanDefinition bd, @Nullable String beanName, BeanFactory owner,
 			final Constructor<?> ctor, Object... args) {
 
-		//如果有需要覆盖或者动态替换的方法则当然需要使用cglib进行动态代理，因为可以在创建代理的同时将动态织入类中
-		//如果没有需要动态改变的方法，直接反射就可以
+		// 如果有需要覆盖或者动态替换的方法则当然需要使用cglib进行动态代理，因为可以在创建代理的同时将动态织入类中
+		// 如果没有需要动态改变的方法，直接反射就可以
 		if (!bd.hasMethodOverrides()) {
 			if (System.getSecurityManager() != null) {
 				// use own privileged to change accessibility (when security is on)
@@ -119,7 +119,7 @@ public class SimpleInstantiationStrategy implements InstantiationStrategy {
 			return BeanUtils.instantiateClass(ctor, args);
 		}
 		else {
-			//动态织入逻辑
+			// 动态织入逻辑
 			return instantiateWithMethodInjection(bd, beanName, owner, ctor, args);
 		}
 	}
