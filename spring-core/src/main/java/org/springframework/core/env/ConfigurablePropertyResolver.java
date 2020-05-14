@@ -39,6 +39,7 @@ public interface ConfigurablePropertyResolver extends PropertyResolver {
 	 * ConfigurableConversionService cs = env.getConversionService();
 	 * cs.addConverter(new FooConverter());
 	 * </pre>
+	 *
 	 * @see PropertyResolver#getProperty(String, Class)
 	 * @see org.springframework.core.convert.converter.ConverterRegistry#addConverter
 	 */
@@ -51,6 +52,7 @@ public interface ConfigurablePropertyResolver extends PropertyResolver {
 	 * {@code ConversionService}, consider adding or removing individual
 	 * {@code Converter} instances by drilling into {@link #getConversionService()}
 	 * and calling methods such as {@code #addConverter}.
+	 *
 	 * @see PropertyResolver#getProperty(String, Class)
 	 * @see #getConversionService()
 	 * @see org.springframework.core.convert.converter.ConverterRegistry#addConverter
@@ -83,6 +85,7 @@ public interface ConfigurablePropertyResolver extends PropertyResolver {
 	 * <p>Implementations of {@link #getProperty(String)} and its variants must inspect
 	 * the value set here to determine correct behavior when property values contain
 	 * unresolvable placeholders.
+	 *
 	 * @since 3.2
 	 */
 	void setIgnoreUnresolvableNestedPlaceholders(boolean ignoreUnresolvableNestedPlaceholders);
@@ -90,6 +93,8 @@ public interface ConfigurablePropertyResolver extends PropertyResolver {
 	/**
 	 * Specify which properties must be present, to be verified by
 	 * {@link #validateRequiredProperties()}.
+	 * <p>
+	 * 指定必须存在的属性，以通过{@link #validateRequiredProperties（）}进行验证
 	 */
 	void setRequiredProperties(String... requiredProperties);
 
@@ -97,8 +102,11 @@ public interface ConfigurablePropertyResolver extends PropertyResolver {
 	 * Validate that each of the properties specified by
 	 * {@link #setRequiredProperties} is present and resolves to a
 	 * non-{@code null} value.
+	 * <p>
+	 * 验证是否存在{@link #setRequiredProperties}指定的每个属性，并将其解析为非{@code null}值
+	 *
 	 * @throws MissingRequiredPropertiesException if any of the required
-	 * properties are not resolvable.
+	 *                                            properties are not resolvable.
 	 */
 	void validateRequiredProperties() throws MissingRequiredPropertiesException;
 

@@ -6,18 +6,21 @@
 
 	<description>用户类相关</description>
 
-	<bean id="userLookupMethod" class="com.example.test.ch2.UserLookupMethodTest"/>
-
-	<bean name="user" class="com.example.test.ch2.User"
-		  init-method="changeInitParam" depends-on="people">
+	<bean name="user user1 user2 user3" class="com.example.test.ch2.User"
+		  init-method="changeInitParam" depends-on="people baseBean" autowire="byName">
 		<property name="id" value="001"/>
 		<property name="name" value="cp"/>
-		<meta key="a" value="1"/>
-		<meta key="b" value="2"/>
-		<meta key="c" value="3"/>
 		<lookup-method name="lookupMethod" bean="userLookupMethod"/>
 	</bean>
 
+
+	<bean id="userLookupMethod" class="com.example.test.ch2.UserLookupMethodTest"/>
+
+	<bean id="baseBean" factory-bean="baseBeanFactory" factory-method="generateBaseBean"/>
+	<alias name="baseBean" alias="baseBean1"/>
+
+	<bean id="baseBeanFactory" class="com.example.test.ch2.CustomBaseBeanFactory"/>
+
 	<bean name="people" class="com.example.test.ch2.People"
-		  destroy-method="destroy" factory-method="generatePeopleObj" lazy-init="true"/>
+	destroy-method="destroy" factory-method="generatePeopleObj" lazy-init="true" depends-on="baseBean"/>
 </beans>

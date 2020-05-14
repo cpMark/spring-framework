@@ -128,20 +128,20 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		// 在这个方法中，任何嵌套的<beans>标签都会导致此方法的递归调用
 
 		BeanDefinitionParserDelegate parent = this.delegate;
-		//实例化BeanDefinitionParserDelegate对象
+		// 实例化BeanDefinitionParserDelegate对象
 		this.delegate = createDelegate(getReaderContext(), root, parent);
 
-		//从元素中提取命名空间，判断是否是默认命名空间——为空，或者为'http://www.springframework.org/schema/beans'就认为是默认命名空间
+		// 从元素中提取命名空间，判断是否是默认命名空间——为空，或者为'http://www.springframework.org/schema/beans'就认为是默认命名空间
 		if (this.delegate.isDefaultNamespace(root)) {
-			//获取当前激活的环境属性profile
+			// 获取当前激活的环境属性profile
 			String profileSpec = root.getAttribute(PROFILE_ATTRIBUTE);
 			if (StringUtils.hasText(profileSpec)) {
-				//在profile属性不为空的情况下，进行处理
+				// 在profile属性不为空的情况下，进行处理
 				String[] specifiedProfiles = StringUtils.tokenizeToStringArray(
 						profileSpec, BeanDefinitionParserDelegate.MULTI_VALUE_ATTRIBUTE_DELIMITERS);
 				// We cannot use Profiles.of(...) since profile expressions are not supported
 				// in XML config. See SPR-12458 for details.
-				//当没有匹配的激活环境时直接返回
+				// 当没有匹配的激活环境时直接返回
 				if (!getReaderContext().getEnvironment().acceptsProfiles(specifiedProfiles)) {
 					if (logger.isDebugEnabled()) {
 						logger.debug("Skipped XML bean definition file due to specified profiles [" + profileSpec +
@@ -152,11 +152,11 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 			}
 		}
 
-		//解析xml前拦截处理
+		// 解析xml前拦截处理
 		preProcessXml(root);
-		//真正解析xml的地方
+		// 真正解析xml的地方
 		parseBeanDefinitions(root, this.delegate);
-		//解析xml后拦截处理
+		// 解析xml后拦截处理
 		postProcessXml(root);
 
 		this.delegate = parent;
@@ -179,7 +179,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	 * @param root the DOM root element of the document
 	 */
 	protected void parseBeanDefinitions(Element root, BeanDefinitionParserDelegate delegate) {
-		//默认命名空间时的解析
+		// 默认命名空间时的解析
 		if (delegate.isDefaultNamespace(root)) {
 			NodeList nl = root.getChildNodes();
 			for (int i = 0; i < nl.getLength(); i++) {
@@ -255,7 +255,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		// 如果是绝对URI则直接根据地址加载对应的配置文件
 		if (absoluteLocation) {
 			try {
-				//加载配置文件中的BeanDefinition，并返回加载的个数
+				// 加载配置文件中的BeanDefinition，并返回加载的个数
 				int importCount = getReaderContext().getReader().loadBeanDefinitions(location, actualResources);
 				if (logger.isTraceEnabled()) {
 					logger.trace("Imported " + importCount + " bean definitions from URL location [" + location + "]");
@@ -300,7 +300,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	 * Process the given alias element, registering the alias with the registry.
 	 */
 	protected void processAliasRegistration(Element ele) {
-		//获取name属性和alias属性
+		// 获取name属性和alias属性
 		String name = ele.getAttribute(NAME_ATTRIBUTE);
 		String alias = ele.getAttribute(ALIAS_ATTRIBUTE);
 		boolean valid = true;
@@ -314,13 +314,13 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		}
 		if (valid) {
 			try {
-				//注册别名
+				// 注册别名
 				getReaderContext().getRegistry().registerAlias(name, alias);
 			} catch (Exception ex) {
 				getReaderContext().error("Failed to register alias '" + alias +
 						"' for bean with name '" + name + "'", ele, ex);
 			}
-			//通知监听器做相应处理
+			// 通知监听器做相应处理
 			getReaderContext().fireAliasRegistered(name, alias, extractSource(ele));
 		}
 	}

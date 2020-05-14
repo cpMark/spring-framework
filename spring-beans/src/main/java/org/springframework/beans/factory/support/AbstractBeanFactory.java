@@ -176,6 +176,8 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 
 	/**
 	 * BeanPostProcessors to apply in createBean.
+	 * <p>
+	 * 应用于createBean的BeanPostProcessors
 	 */
 	private final List<BeanPostProcessor> beanPostProcessors = new CopyOnWriteArrayList<>();
 
@@ -1456,6 +1458,9 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	/**
 	 * Clear the merged bean definition cache, removing entries for beans
 	 * which are not considered eligible for full metadata caching yet.
+	 * <p>
+	 * 清除合并的bean定义缓存，删除bean的条目，这些条目尚不适合进行完整的元数据缓存。
+	 *
 	 * <p>Typically triggered after changes to the original bean definitions,
 	 * e.g. after applying a {@code BeanFactoryPostProcessor}. Note that metadata
 	 * for beans which have already been created at this point will be kept around.

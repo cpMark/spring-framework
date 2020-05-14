@@ -138,6 +138,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 	/**
 	 * Whether to automatically try to resolve circular references between beans.
+	 * <p>
+	 * 是否自动尝试解析Bean之间的循环引用
 	 */
 	private boolean allowCircularReferences = true;
 
@@ -249,6 +251,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	/**
 	 * Set whether to allow circular references between beans - and automatically
 	 * try to resolve them.
+	 * <p>
+	 * 设置是否在bean之间允许循环引用-并自动尝试解决它们
+	 *
 	 * <p>Note that circular reference resolution means that one of the involved beans
 	 * will receive a reference to another bean that is not fully initialized yet.
 	 * This can lead to subtle and not-so-subtle side effects on initialization;
@@ -607,7 +612,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		System.out.println("---------------------已经实例化了");
 		System.out.println(bean);
-
+		// 生成实例的类型不为NullBean，则记录为已解析目标类型
 		if (beanType != NullBean.class) {
 			mbd.resolvedTargetType = beanType;
 		}
@@ -628,7 +633,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		// Eagerly cache singletons to be able to resolve circular references
 		// even when triggered by lifecycle interfaces like BeanFactoryAware.
-		// 是否需要提早曝光：单例&允许循环依赖&当前bean正在创建中，检测循环依赖
+		// 是否需要提早曝光：单例&允许循环依赖&当前bean正在创建中
 		boolean earlySingletonExposure = (mbd.isSingleton() && this.allowCircularReferences &&
 				isSingletonCurrentlyInCreation(beanName));
 		if (earlySingletonExposure) {
@@ -637,7 +642,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 						"' to allow for resolving potential circular references");
 			}
 
-			// 为避免后期循环依赖，可以在bean初始化完成前将创建实例的ObjectFactory加入工厂
+			// 为避免后期循环依赖，可以在bean初始化完成前将创建实例的ObjectFactory加入工厂——曝光的是ObjectFactory对象
 			addSingletonFactory(
 					beanName,
 					// 对bean再一次依赖引用，主要应用SmartInstantiationAwareBeanPostProcessor

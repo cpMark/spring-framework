@@ -21,6 +21,8 @@ import org.springframework.beans.BeansException;
 /**
  * Allows for custom modification of an application context's bean definitions,
  * adapting the bean property values of the context's underlying bean factory.
+ * <p>
+ * 允许自定义修改应用程序上下文的Bean定义，调整上下文的基础Bean工厂的Bean属性值
  *
  * <p>Application contexts can auto-detect BeanFactoryPostProcessor beans in
  * their bean definitions and apply them before any other beans get created.
@@ -38,9 +40,9 @@ import org.springframework.beans.BeansException;
  * {@link BeanPostProcessor} instead.
  *
  * @author Juergen Hoeller
- * @since 06.07.2003
  * @see BeanPostProcessor
  * @see PropertyResourceConfigurer
+ * @since 06.07.2003
  */
 @FunctionalInterface
 public interface BeanFactoryPostProcessor {
@@ -50,6 +52,10 @@ public interface BeanFactoryPostProcessor {
 	 * initialization. All bean definitions will have been loaded, but no beans
 	 * will have been instantiated yet. This allows for overriding or adding
 	 * properties even to eager-initializing beans.
+	 * <p>
+	 * 在标准初始化之后，修改应用程序上下文的内部bean工厂。所有bean定义都将被加载，
+	 * 但是还没有实例化bean。这可以覆盖或添加属性，甚至可以用于初始化bean
+	 *
 	 * @param beanFactory the bean factory used by the application context
 	 * @throws org.springframework.beans.BeansException in case of errors
 	 */

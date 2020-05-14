@@ -21,6 +21,9 @@ package org.springframework.context;
  * The typical use case for this is to control asynchronous processing.
  * <b>NOTE: This interface does not imply specific auto-startup semantics.
  * Consider implementing {@link SmartLifecycle} for that purpose.</b>
+ * <p>
+ * 定义启动/停止生命周期控制方法的通用接口。典型的用例是控制异步处理。
+ * 注意：此接口并不意味着特定的自动启动语义。 考虑为此目的实施{@link SmartLifecycle}
  *
  * <p>Can be implemented by both components (typically a Spring bean defined in a
  * Spring context) and containers  (typically a Spring {@link ApplicationContext}
@@ -41,11 +44,11 @@ package org.springframework.context;
  * application context's startup and shutdown phases.
  *
  * @author Juergen Hoeller
- * @since 2.0
  * @see SmartLifecycle
  * @see ConfigurableApplicationContext
  * @see org.springframework.jms.listener.AbstractMessageListenerContainer
  * @see org.springframework.scheduling.quartz.SchedulerFactoryBean
+ * @since 2.0
  */
 public interface Lifecycle {
 
@@ -54,6 +57,7 @@ public interface Lifecycle {
 	 * <p>Should not throw an exception if the component is already running.
 	 * <p>In the case of a container, this will propagate the start signal to all
 	 * components that apply.
+	 *
 	 * @see SmartLifecycle#isAutoStartup()
 	 */
 	void start();
@@ -70,6 +74,7 @@ public interface Lifecycle {
 	 * <p>Should not throw an exception if the component is not running (not started yet).
 	 * <p>In the case of a container, this will propagate the stop signal to all components
 	 * that apply.
+	 *
 	 * @see SmartLifecycle#stop(Runnable)
 	 * @see org.springframework.beans.factory.DisposableBean#destroy()
 	 */
@@ -79,6 +84,7 @@ public interface Lifecycle {
 	 * Check whether this component is currently running.
 	 * <p>In the case of a container, this will return {@code true} only if <i>all</i>
 	 * components that apply are currently running.
+	 *
 	 * @return whether the component is currently running
 	 */
 	boolean isRunning();

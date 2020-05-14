@@ -22,11 +22,13 @@ import org.springframework.instrument.classloading.LoadTimeWeaver;
 /**
  * Interface to be implemented by any object that wishes to be notified
  * of the application context's default {@link LoadTimeWeaver}.
+ * <p>
+ * 希望由任何希望通过应用程序上下文的默认{@link LoadTimeWeaver}通知的对象实现的接口
  *
  * @author Juergen Hoeller
  * @author Chris Beams
- * @since 2.5
  * @see org.springframework.context.ConfigurableApplicationContext#LOAD_TIME_WEAVER_BEAN_NAME
+ * @since 2.5
  */
 public interface LoadTimeWeaverAware extends Aware {
 
@@ -44,6 +46,7 @@ public interface LoadTimeWeaverAware extends Aware {
 	 * {@code LoadTimeWeaver} available in the application context. If
 	 * there is none, the method will simply not get invoked, assuming that the
 	 * implementing object is able to activate its weaving dependency accordingly.
+	 *
 	 * @param loadTimeWeaver the {@code LoadTimeWeaver} instance (never {@code null})
 	 * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet
 	 * @see org.springframework.context.ApplicationContextAware#setApplicationContext

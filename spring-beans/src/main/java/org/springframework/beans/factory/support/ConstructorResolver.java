@@ -479,15 +479,16 @@ class ConstructorResolver {
 			// Need to determine the factory method...
 			// Try all methods with this name to see if they match the given arguments.
 			factoryClass = ClassUtils.getUserClass(factoryClass);
-
+			// 获取当前Class对象的所有方法（包含父类的）——原始方法，未过滤
 			Method[] rawCandidates = getCandidateMethods(factoryClass, mbd);
+			// 记录当前所有满足条件的方法——静态标识一致、候选方法的方法名称和RootBeanDefinition中的factoryMethodName记录值一致
 			List<Method> candidateList = new ArrayList<>();
 			for (Method candidate : rawCandidates) {
 				if (Modifier.isStatic(candidate.getModifiers()) == isStatic && mbd.isFactoryMethod(candidate)) {
 					candidateList.add(candidate);
 				}
 			}
-
+			// 候选函数集合为1&没有精准参数&没有构造函数参数时的逻辑
 			if (candidateList.size() == 1 && explicitArgs == null && !mbd.hasConstructorArgumentValues()) {
 				Method uniqueCandidate = candidateList.get(0);
 				if (uniqueCandidate.getParameterCount() == 0) {

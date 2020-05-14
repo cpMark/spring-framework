@@ -43,6 +43,9 @@ import org.springframework.util.StringUtils;
  */
 public class SimpleInstantiationStrategy implements InstantiationStrategy {
 
+	/**
+	 * 当前正在引用的工厂方法
+	 */
 	private static final ThreadLocal<Method> currentlyInvokedFactoryMethod = new ThreadLocal<>();
 
 
@@ -150,9 +153,10 @@ public class SimpleInstantiationStrategy implements InstantiationStrategy {
 			else {
 				ReflectionUtils.makeAccessible(factoryMethod);
 			}
-
+			// 之前引用的工厂方法
 			Method priorInvokedFactoryMethod = currentlyInvokedFactoryMethod.get();
 			try {
+				// 将当前正在引用的工厂方法保存到currentlyInvokedFactoryMethod对象中
 				currentlyInvokedFactoryMethod.set(factoryMethod);
 				Object result = factoryMethod.invoke(factoryBean, args);
 				if (result == null) {
@@ -161,6 +165,7 @@ public class SimpleInstantiationStrategy implements InstantiationStrategy {
 				return result;
 			}
 			finally {
+				// 执行完毕，如果之前引用的工厂方法不为空，则设置回去，反之移除当前正在创建的即可
 				if (priorInvokedFactoryMethod != null) {
 					currentlyInvokedFactoryMethod.set(priorInvokedFactoryMethod);
 				}

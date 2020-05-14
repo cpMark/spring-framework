@@ -6,6 +6,8 @@ public class People implements InitializingBean {
 
 	private Boolean isMan;
 
+	private BaseBean baseBean;
+
 	@Override
 	public String toString() {
 		return "People{" +

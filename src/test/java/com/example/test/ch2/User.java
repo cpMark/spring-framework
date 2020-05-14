@@ -8,6 +8,16 @@ public class User implements InitializingBean {
 
 	private String name;
 
+	private BaseBean baseBean;
+
+	public BaseBean getBaseBean() {
+		return baseBean;
+	}
+
+	public void setBaseBean(BaseBean baseBean) {
+		this.baseBean = baseBean;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -27,9 +37,10 @@ public class User implements InitializingBean {
 	public User() {
 	}
 
-	public User(String id, String name) {
+	public User(String id, String name,BaseBean baseBean) {
 		this.id = id;
 		this.name = name;
+		this.baseBean = baseBean;
 	}
 
 	@Override
@@ -37,6 +48,7 @@ public class User implements InitializingBean {
 		return "User{" +
 				"id='" + id + '\'' +
 				", name='" + name + '\'' +
+				", baseBean=" + baseBean +
 				'}';
 	}
 
