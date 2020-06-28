@@ -1,0 +1,10 @@
+<!DOCTYPE aspectj PUBLIC "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
+<aspectj>
+	<weaver>
+		<include within="com.example.test.ch7.*"/>
+	</weaver>
+
+	<aspects>
+		<aspect name="com.example.test.ch7.AspectJTest"/>
+	</aspects>
+</aspectj>

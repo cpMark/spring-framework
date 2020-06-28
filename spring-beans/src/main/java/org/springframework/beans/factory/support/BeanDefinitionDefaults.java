@@ -21,6 +21,8 @@ import org.springframework.util.StringUtils;
 
 /**
  * A simple holder for {@code BeanDefinition} property defaults.
+ * <p>
+ * 一个{@code BeanDefinition}默认属性的持有者
  *
  * @author Mark Fisher
  * @author Juergen Hoeller
@@ -28,15 +30,30 @@ import org.springframework.util.StringUtils;
  */
 public class BeanDefinitionDefaults {
 
+	/**
+	 * 是否懒加载
+	 */
 	private boolean lazyInit;
 
+	/**
+	 * 装配模式
+	 */
 	private int autowireMode = AbstractBeanDefinition.AUTOWIRE_NO;
 
+	/**
+	 * 依赖检查
+	 */
 	private int dependencyCheck = AbstractBeanDefinition.DEPENDENCY_CHECK_NONE;
 
+	/**
+	 * 初始化方法
+	 */
 	@Nullable
 	private String initMethodName;
 
+	/**
+	 * 销毁方法
+	 */
 	@Nullable
 	private String destroyMethodName;
 
@@ -53,6 +70,7 @@ public class BeanDefinitionDefaults {
 	/**
 	 * Return whether beans should be lazily initialized by default, i.e. not
 	 * eagerly instantiated on startup. Only applicable to singleton beans.
+	 *
 	 * @return whether to apply lazy-init semantics ({@code false} by default)
 	 */
 	public boolean isLazyInit() {
@@ -64,8 +82,9 @@ public class BeanDefinitionDefaults {
 	 * and setting of bean references will happen. Default is AUTOWIRE_NO
 	 * which means there won't be convention-based autowiring by name or type
 	 * (however, there may still be explicit annotation-driven autowiring).
+	 *
 	 * @param autowireMode the autowire mode to set.
-	 * Must be one of the constants defined in {@link AbstractBeanDefinition}.
+	 *                     Must be one of the constants defined in {@link AbstractBeanDefinition}.
 	 */
 	public void setAutowireMode(int autowireMode) {
 		this.autowireMode = autowireMode;
@@ -80,8 +99,9 @@ public class BeanDefinitionDefaults {
 
 	/**
 	 * Set the dependency check code.
+	 *
 	 * @param dependencyCheck the code to set.
-	 * Must be one of the constants defined in {@link AbstractBeanDefinition}.
+	 *                        Must be one of the constants defined in {@link AbstractBeanDefinition}.
 	 */
 	public void setDependencyCheck(int dependencyCheck) {
 		this.dependencyCheck = dependencyCheck;

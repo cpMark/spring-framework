@@ -32,6 +32,8 @@ import org.springframework.util.ClassUtils;
 
 /**
  * Parser for the &lt;context:load-time-weaver/&gt; element.
+ * <p>
+ * <context：load-time-weaver />元素的解析器
  *
  * @author Juergen Hoeller
  * @since 2.5
@@ -40,6 +42,7 @@ class LoadTimeWeaverBeanDefinitionParser extends AbstractSingleBeanDefinitionPar
 
 	/**
 	 * The bean name of the internally managed AspectJ weaving enabler.
+	 *
 	 * @since 4.3.1
 	 */
 	public static final String ASPECTJ_WEAVING_ENABLER_BEAN_NAME =
@@ -73,8 +76,11 @@ class LoadTimeWeaverBeanDefinitionParser extends AbstractSingleBeanDefinitionPar
 	protected void doParse(Element element, ParserContext parserContext, BeanDefinitionBuilder builder) {
 		builder.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
 
+		// 获取aspectj-weaving属性的值，然后传递给isAspectJWeavingEnabled函数来检测是否开启AspectJ开关
 		if (isAspectJWeavingEnabled(element.getAttribute(ASPECTJ_WEAVING_ATTRIBUTE), parserContext)) {
+			// 判断是否存在以org.springframework.context.config.internalAspectJWeavingEnabler为beanName的实例
 			if (!parserContext.getRegistry().containsBeanDefinition(ASPECTJ_WEAVING_ENABLER_BEAN_NAME)) {
+				// 创建RootBeanDefinition，以org.springframework.context.weaving.AspectJWeavingEnabler为className
 				RootBeanDefinition def = new RootBeanDefinition(ASPECTJ_WEAVING_ENABLER_CLASS_NAME);
 				parserContext.registerBeanComponent(
 						new BeanComponentDefinition(def, ASPECTJ_WEAVING_ENABLER_BEAN_NAME));
@@ -86,16 +92,18 @@ class LoadTimeWeaverBeanDefinitionParser extends AbstractSingleBeanDefinitionPar
 		}
 	}
 
+	/**
+	 * 检测是否开启AspectJ开关
+	 */
 	protected boolean isAspectJWeavingEnabled(String value, ParserContext parserContext) {
 		if ("on".equals(value)) {
 			return true;
-		}
-		else if ("off".equals(value)) {
+		} else if ("off".equals(value)) {
 			return false;
-		}
-		else {
+		} else {
 			// Determine default...
 			ClassLoader cl = parserContext.getReaderContext().getBeanClassLoader();
+			// 判断是否存在META-INF/aop.xml文件，存在返回true，反之返回false
 			return (cl != null && cl.getResource(AspectJWeavingEnabler.ASPECTJ_AOP_XML_RESOURCE) != null);
 		}
 	}

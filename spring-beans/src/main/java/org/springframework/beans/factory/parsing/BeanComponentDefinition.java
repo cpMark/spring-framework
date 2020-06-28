@@ -29,7 +29,7 @@ import org.springframework.lang.Nullable;
 /**
  * ComponentDefinition based on a standard BeanDefinition, exposing the given bean
  * definition as well as inner bean definitions and bean references for the given bean.
- *
+ * <p>
  * ComponentDefinition以标准的BeanDefinition为基础，公开了给定BeanDefinition以及给定BeanDefinition的内部BeanDefinition和bean引用
  *
  * @author Rob Harrop
@@ -45,8 +45,9 @@ public class BeanComponentDefinition extends BeanDefinitionHolder implements Com
 
 	/**
 	 * Create a new BeanComponentDefinition for the given bean.
+	 *
 	 * @param beanDefinition the BeanDefinition
-	 * @param beanName the name of the bean
+	 * @param beanName       the name of the bean
 	 */
 	public BeanComponentDefinition(BeanDefinition beanDefinition, String beanName) {
 		this(new BeanDefinitionHolder(beanDefinition, beanName));
@@ -54,9 +55,10 @@ public class BeanComponentDefinition extends BeanDefinitionHolder implements Com
 
 	/**
 	 * Create a new BeanComponentDefinition for the given bean.
+	 *
 	 * @param beanDefinition the BeanDefinition
-	 * @param beanName the name of the bean
-	 * @param aliases alias names for the bean, or {@code null} if none
+	 * @param beanName       the name of the bean
+	 * @param aliases        alias names for the bean, or {@code null} if none
 	 */
 	public BeanComponentDefinition(BeanDefinition beanDefinition, String beanName, @Nullable String[] aliases) {
 		this(new BeanDefinitionHolder(beanDefinition, beanName, aliases));
@@ -64,8 +66,9 @@ public class BeanComponentDefinition extends BeanDefinitionHolder implements Com
 
 	/**
 	 * Create a new BeanComponentDefinition for the given bean.
+	 *
 	 * @param beanDefinitionHolder the BeanDefinitionHolder encapsulating
-	 * the bean definition as well as the name of the bean
+	 *                             the bean definition as well as the name of the bean
 	 */
 	public BeanComponentDefinition(BeanDefinitionHolder beanDefinitionHolder) {
 		// 调用父构造，保存了BeanDefinition和beanName，还有aliases
@@ -79,8 +82,7 @@ public class BeanComponentDefinition extends BeanDefinitionHolder implements Com
 			// 内部bean
 			if (value instanceof BeanDefinitionHolder) {
 				innerBeans.add(((BeanDefinitionHolder) value).getBeanDefinition());
-			}
-			else if (value instanceof BeanDefinition) {
+			} else if (value instanceof BeanDefinition) {
 				innerBeans.add((BeanDefinition) value);
 			}
 			// 引用bean
@@ -105,7 +107,7 @@ public class BeanComponentDefinition extends BeanDefinitionHolder implements Com
 
 	@Override
 	public BeanDefinition[] getBeanDefinitions() {
-		return new BeanDefinition[] {getBeanDefinition()};
+		return new BeanDefinition[]{getBeanDefinition()};
 	}
 
 	@Override
@@ -121,6 +123,7 @@ public class BeanComponentDefinition extends BeanDefinitionHolder implements Com
 
 	/**
 	 * This implementation returns this ComponentDefinition's description.
+	 *
 	 * @see #getDescription()
 	 */
 	@Override

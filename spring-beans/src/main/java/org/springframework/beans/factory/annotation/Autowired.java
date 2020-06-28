@@ -26,6 +26,9 @@ import java.lang.annotation.Target;
  * Marks a constructor, field, setter method, or config method as to be autowired by
  * Spring's dependency injection facilities. This is an alternative to the JSR-330
  * {@link javax.inject.Inject} annotation, adding required-vs-optional semantics.
+ * <p>
+ * 将构造方法，字段，setter方法或config方法标记为由Spring的依赖项注入工具自动装配。
+ * 这是JSR-330{@link javax.inject.Inject}注释的替代方法，添加了required-vs-optional语义
  *
  * <p>Only one constructor of any given bean class may declare this annotation with
  * the 'required' attribute set to {@code true}, indicating <i>the</i> constructor
@@ -73,10 +76,10 @@ import java.lang.annotation.Target;
  *
  * @author Juergen Hoeller
  * @author Mark Fisher
- * @since 2.5
  * @see AutowiredAnnotationBeanPostProcessor
  * @see Qualifier
  * @see Value
+ * @since 2.5
  */
 @Target({ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)

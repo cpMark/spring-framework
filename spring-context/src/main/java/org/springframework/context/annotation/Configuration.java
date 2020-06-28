@@ -28,6 +28,8 @@ import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Component;
 
 /**
+ * 表示一个类声明了一个或多个{@link Bean @Bean}方法，并且可以由Spring容器处理，以在运行时为这些bean生成bean定义和服务请求
+ * <p>
  * Indicates that a class declares one or more {@link Bean @Bean} methods and
  * may be processed by the Spring container to generate bean definitions and
  * service requests for those beans at runtime, for example:
@@ -402,7 +404,6 @@ import org.springframework.stereotype.Component;
  *
  * @author Rod Johnson
  * @author Chris Beams
- * @since 3.0
  * @see Bean
  * @see Profile
  * @see Import
@@ -414,6 +415,7 @@ import org.springframework.stereotype.Component;
  * @see ConfigurationClassPostProcessor
  * @see org.springframework.core.env.Environment
  * @see org.springframework.test.context.ContextConfiguration
+ * @since 3.0
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
@@ -430,6 +432,7 @@ public @interface Configuration {
 	 * {@link AnnotationConfigApplicationContext}. If the {@code @Configuration} class
 	 * is registered as a traditional XML bean definition, the name/id of the bean
 	 * element will take precedence.
+	 *
 	 * @return the explicit component name, if any (or empty String otherwise)
 	 * @see AnnotationBeanNameGenerator
 	 */

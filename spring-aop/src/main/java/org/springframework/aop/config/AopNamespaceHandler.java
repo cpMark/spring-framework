@@ -22,10 +22,14 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 
 /**
  * {@code NamespaceHandler} for the {@code aop} namespace.
+ * <p>
+ * Aop命名空间的解析器
  *
  * <p>Provides a {@link org.springframework.beans.factory.xml.BeanDefinitionParser} for the
  * {@code <aop:config>} tag. A {@code config} tag can include nested
  * {@code pointcut}, {@code advisor} and {@code aspect} tags.
+ * <p>
+ * 提供了针对<aop:config>标签的bean定义解析器。一个config标签可以包含嵌套的pointcut、advisor和aspect标签
  *
  * <p>The {@code pointcut} tag allows for creation of named
  * {@link AspectJExpressionPointcut} beans using a simple syntax:
@@ -58,6 +62,8 @@ public class AopNamespaceHandler extends NamespaceHandlerSupport {
 	 * Register the {@link BeanDefinitionParser BeanDefinitionParsers} for the
 	 * '{@code config}', '{@code spring-configured}', '{@code aspectj-autoproxy}'
 	 * and '{@code scoped-proxy}' tags.
+	 * <p>
+	 * 为config、spring-configured、aspectj-autoproxy和scoped-proxy标签注册一个bean定义的解析器
 	 */
 	@Override
 	public void init() {

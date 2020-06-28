@@ -23,6 +23,8 @@ import org.springframework.beans.factory.config.BeanReference;
 /**
  * Interface that describes the logical view of a set of {@link BeanDefinition BeanDefinitions}
  * and {@link BeanReference BeanReferences} as presented in some configuration context.
+ * <p>
+ * 描述某些配置上下文中呈现的{@link BeanDefinition BeanDefinitions}和{@link BeanReference BeanReferences}的逻辑视图的接口。
  *
  * <p>With the introduction of {@link org.springframework.beans.factory.xml.NamespaceHandler pluggable custom XML tags},
  * it is now possible for a single logical configuration entity, in this case an XML tag, to
@@ -68,11 +70,11 @@ import org.springframework.beans.factory.config.BeanReference;
  *
  * @author Rob Harrop
  * @author Juergen Hoeller
- * @since 2.0
  * @see AbstractComponentDefinition
  * @see CompositeComponentDefinition
  * @see BeanComponentDefinition
  * @see ReaderEventListener#componentRegistered(ComponentDefinition)
+ * @since 2.0
  */
 public interface ComponentDefinition extends BeanMetadataElement {
 
@@ -97,6 +99,7 @@ public interface ComponentDefinition extends BeanMetadataElement {
 	 * other {@link BeanDefinition BeanDefinitions} via {@link BeanReference references},
 	 * however these are <strong>not</strong> included as they may be not available immediately.
 	 * Important {@link BeanReference BeanReferences} are available from {@link #getBeanReferences()}.
+	 *
 	 * @return the array of BeanDefinitions, or an empty array if none
 	 */
 	BeanDefinition[] getBeanDefinitions();
@@ -106,6 +109,7 @@ public interface ComponentDefinition extends BeanMetadataElement {
 	 * inner beans within this component.
 	 * <p>Other inner beans may exist within the associated {@link BeanDefinition BeanDefinitions},
 	 * however these are not considered to be needed for validation or for user visualization.
+	 *
 	 * @return the array of BeanDefinitions, or an empty array if none
 	 */
 	BeanDefinition[] getInnerBeanDefinitions();
@@ -116,6 +120,7 @@ public interface ComponentDefinition extends BeanMetadataElement {
 	 * <p>Other {@link BeanReference BeanReferences} may exist within the associated
 	 * {@link BeanDefinition BeanDefinitions}, however these are not considered
 	 * to be needed for validation or for user visualization.
+	 *
 	 * @return the array of BeanReferences, or an empty array if none
 	 */
 	BeanReference[] getBeanReferences();

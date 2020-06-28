@@ -27,6 +27,8 @@ import org.springframework.util.StringUtils;
 
 /**
  * {@link FactoryBean} implementation that locates a {@link Method} on a specified bean.
+ * <p>
+ * {@link FactoryBean}的实现，它在指定的bean上定位{@link Method}。
  *
  * @author Rob Harrop
  * @since 2.0
@@ -44,8 +46,10 @@ public class MethodLocatingFactoryBean implements FactoryBean<Method>, BeanFacto
 
 
 	/**
-	 * Set the name of the bean to locate the {@link Method} on.
-	 * <p>This property is required.
+	 * Set the name of the bean to locate the {@link Method} on.This property is required.
+	 * <p>
+	 * 设置bean的名称以找到{@link Method}。这个属性是必须的。
+	 *
 	 * @param targetBeanName the name of the bean to locate the {@link Method} on
 	 */
 	public void setTargetBeanName(String targetBeanName) {
@@ -55,6 +59,9 @@ public class MethodLocatingFactoryBean implements FactoryBean<Method>, BeanFacto
 	/**
 	 * Set the name of the {@link Method} to locate.
 	 * <p>This property is required.
+	 * <p>
+	 * 设置要查找的{@link Method}的名称。这个属性是必须的。
+	 *
 	 * @param methodName the name of the {@link Method} to locate
 	 */
 	public void setMethodName(String methodName) {
@@ -70,10 +77,12 @@ public class MethodLocatingFactoryBean implements FactoryBean<Method>, BeanFacto
 			throw new IllegalArgumentException("Property 'methodName' is required");
 		}
 
+		// 通过目标bean的名称查找其Class类型
 		Class<?> beanClass = beanFactory.getType(this.targetBeanName);
 		if (beanClass == null) {
 			throw new IllegalArgumentException("Can't determine type of bean with name '" + this.targetBeanName + "'");
 		}
+		// 在Class上查找特定方法名称的方法
 		this.method = BeanUtils.resolveSignature(this.methodName, beanClass);
 
 		if (this.method == null) {

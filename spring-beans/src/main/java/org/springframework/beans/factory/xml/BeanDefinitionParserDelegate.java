@@ -1500,18 +1500,18 @@ public class BeanDefinitionParserDelegate {
 	 */
 	@Nullable
 	public BeanDefinition parseCustomElement(Element ele, @Nullable BeanDefinition containingBd) {
-		//从元素中获取命名空间
+		// 从元素中获取命名空间
 		String namespaceUri = getNamespaceURI(ele);
 		if (namespaceUri == null) {
 			return null;
 		}
-		//通过命名空间获取命名空间的处理器。命名空间处理器解析器为DefaultNamespaceHandlerResolver实例
+		// 通过命名空间获取命名空间的处理器。命名空间处理器解析器为DefaultNamespaceHandlerResolver实例
 		NamespaceHandler handler = this.readerContext.getNamespaceHandlerResolver().resolve(namespaceUri);
 		if (handler == null) {
 			error("Unable to locate Spring NamespaceHandler for XML schema namespace [" + namespaceUri + "]", ele);
 			return null;
 		}
-		//调用处理器的解析方法
+		// 调用处理器的解析方法
 		return handler.parse(ele, new ParserContext(this.readerContext, this, containingBd));
 	}
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	   default-lazy-init="false"
+	   default-autowire-candidates=""
+	   default-init-method=""
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!--  没有定义class时，必须指定abstract参数为true  -->
+	<bean id="classA" abstract="true">
+		<property name="name" value="parentName"/>
+		<property name="id" value="007"/>
+	</bean>
+
+	<bean id="testParent" class="com.example.test.ch2.User" parent="classA">
+
+	</bean>
+
+</beans>

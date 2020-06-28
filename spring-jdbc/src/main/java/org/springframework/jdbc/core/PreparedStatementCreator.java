@@ -25,6 +25,9 @@ import java.sql.SQLException;
  * This interface creates a PreparedStatement given a connection, provided
  * by the JdbcTemplate class. Implementations are responsible for providing
  * SQL and any necessary parameters.
+ * <p>
+ * JdbcTemplate类使用的两个核心回调接口之一。此接口在给定连接的情况下创建一个PreparedStatement，由JdbcTemplate类提供。
+ * 实现负责提供SQL和任何必要的参数。
  *
  * <p>Implementations <i>do not</i> need to concern themselves with
  * SQLExceptions that may be thrown from operations they attempt.
@@ -46,11 +49,14 @@ public interface PreparedStatementCreator {
 	/**
 	 * Create a statement in this connection. Allows implementations to use
 	 * PreparedStatements. The JdbcTemplate will close the created statement.
+	 * <p>
+	 * 在此连接中创建一个statement。允许实现使用PreparedStatements。 JdbcTemplate将关闭创建的语句。
+	 *
 	 * @param con the connection used to create statement
 	 * @return a prepared statement
 	 * @throws SQLException there is no need to catch SQLExceptions
-	 * that may be thrown in the implementation of this method.
-	 * The JdbcTemplate class will handle them.
+	 *                      that may be thrown in the implementation of this method.
+	 *                      The JdbcTemplate class will handle them.
 	 */
 	PreparedStatement createPreparedStatement(Connection con) throws SQLException;
 

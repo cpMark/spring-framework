@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+
+<!--	<bean id="company1" class="com.example.test.ch2.Company" scope="prototype">-->
+<!--		<constructor-arg type="java.lang.String" value="companyName"/>-->
+<!--		<constructor-arg type="java.lang.String" value="companyAddress"/>-->
+<!--		<constructor-arg type="int" value="7"/>-->
+<!--	</bean>-->
+
+<!--	<bean id="company2" class="com.example.test.ch2.Company">-->
+<!--		<constructor-arg index="1" value="companyName"/>-->
+<!--		<constructor-arg index="0" value="companyAddress"/>-->
+<!--		<constructor-arg index="2" value="17"/>-->
+<!--	</bean>-->
+
+	<bean id="company2" class="com.example.test.ch2.Company">
+		<constructor-arg name="companyAddress" value="companyName"/>
+		<constructor-arg name="companyName" value="companyAddress"/>
+		<constructor-arg name="houseNo" value="17"/>
+	</bean>
+	<bean id="staff" class="com.example.test.ch2.Company.Staff"/>
+
+</beans>

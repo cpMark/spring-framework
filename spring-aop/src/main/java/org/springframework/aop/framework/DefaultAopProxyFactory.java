@@ -38,10 +38,10 @@ import org.springframework.aop.SpringProxy;
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
- * @since 12.03.2004
  * @see AdvisedSupport#setOptimize
  * @see AdvisedSupport#setProxyTargetClass
  * @see AdvisedSupport#setInterfaces
+ * @since 12.03.2004
  */
 @SuppressWarnings("serial")
 public class DefaultAopProxyFactory implements AopProxyFactory, Serializable {
@@ -54,12 +54,16 @@ public class DefaultAopProxyFactory implements AopProxyFactory, Serializable {
 				throw new AopConfigException("TargetSource cannot determine target class: " +
 						"Either an interface or a target is required for proxy creation.");
 			}
+
+			// 代理的目标类是接口，使用jdk生成代理。proxy-target-class没有配置或者proxy-target-class="false"
 			if (targetClass.isInterface() || Proxy.isProxyClass(targetClass)) {
 				return new JdkDynamicAopProxy(config);
 			}
+
+			// 使用cglib生成代理。proxy-target-class="true"或者<bean>对象没有实现任何接口或者只实现了SpringProxy接口
 			return new ObjenesisCglibAopProxy(config);
-		}
-		else {
+		} else {
+			// 使用jdk生成代理
 			return new JdkDynamicAopProxy(config);
 		}
 	}
@@ -68,6 +72,8 @@ public class DefaultAopProxyFactory implements AopProxyFactory, Serializable {
 	 * Determine whether the supplied {@link AdvisedSupport} has only the
 	 * {@link org.springframework.aop.SpringProxy} interface specified
 	 * (or no proxy interfaces specified at all).
+	 * <p>
+	 * 确定提供的{@link AdvisedSupport}是否仅指定了{@link org.springframework.aop.SpringProxy}接口（或完全没有指定代理接口）
 	 */
 	private boolean hasNoUserSuppliedProxyInterfaces(AdvisedSupport config) {
 		Class<?>[] ifcs = config.getProxiedInterfaces();

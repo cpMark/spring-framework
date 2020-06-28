@@ -29,6 +29,9 @@ import org.springframework.util.Assert;
  * Interceptor to wrap am {@link org.springframework.aop.MethodBeforeAdvice}.
  * Used internally by the AOP framework; application developers should not need
  * to use this class directly.
+ * <p>
+ * 包装为{@link org.springframework.aop.MethodBeforeAdvice}的拦截器。由AOP框架内部使用；
+ * 应用程序开发人员不需要直接使用此类。
  *
  * @author Rod Johnson
  * @see AfterReturningAdviceInterceptor
@@ -37,11 +40,15 @@ import org.springframework.util.Assert;
 @SuppressWarnings("serial")
 public class MethodBeforeAdviceInterceptor implements MethodInterceptor, BeforeAdvice, Serializable {
 
+	/**
+	 * 前置增强的AspectJMethodBeforeAdvice
+	 */
 	private final MethodBeforeAdvice advice;
 
 
 	/**
 	 * Create a new MethodBeforeAdviceInterceptor for the given advice.
+	 *
 	 * @param advice the MethodBeforeAdvice to wrap
 	 */
 	public MethodBeforeAdviceInterceptor(MethodBeforeAdvice advice) {

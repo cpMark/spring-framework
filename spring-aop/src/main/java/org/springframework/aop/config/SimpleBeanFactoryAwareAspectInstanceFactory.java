@@ -28,6 +28,9 @@ import org.springframework.util.ClassUtils;
 /**
  * Implementation of {@link AspectInstanceFactory} that locates the aspect from the
  * {@link org.springframework.beans.factory.BeanFactory} using a configured bean name.
+ * <p>
+ * {@link AspectInstanceFactory}的实现，它使用配置的Bean名称从{@link org.springframework.beans.factory.BeanFactory}
+ * 中定位aspect
  *
  * @author Rob Harrop
  * @author Juergen Hoeller
@@ -45,6 +48,8 @@ public class SimpleBeanFactoryAwareAspectInstanceFactory implements AspectInstan
 	/**
 	 * Set the name of the aspect bean. This is the bean that is returned when calling
 	 * {@link #getAspectInstance()}.
+	 * <p>
+	 * 设置aspect bean的名称，当调用{@link #getAspectInstance()}时将返回该名称对应的bean
 	 */
 	public void setAspectBeanName(String aspectBeanName) {
 		this.aspectBeanName = aspectBeanName;
@@ -59,6 +64,7 @@ public class SimpleBeanFactoryAwareAspectInstanceFactory implements AspectInstan
 
 	/**
 	 * Look up the aspect bean from the {@link BeanFactory} and returns it.
+	 *
 	 * @see #setAspectBeanName
 	 */
 	@Override
@@ -73,8 +79,7 @@ public class SimpleBeanFactoryAwareAspectInstanceFactory implements AspectInstan
 	public ClassLoader getAspectClassLoader() {
 		if (this.beanFactory instanceof ConfigurableBeanFactory) {
 			return ((ConfigurableBeanFactory) this.beanFactory).getBeanClassLoader();
-		}
-		else {
+		} else {
 			return ClassUtils.getDefaultClassLoader();
 		}
 	}

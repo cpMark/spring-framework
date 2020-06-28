@@ -1,5 +1,7 @@
 package com.example.test.ch5;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class TestA {
 	private TestB testB;
 
