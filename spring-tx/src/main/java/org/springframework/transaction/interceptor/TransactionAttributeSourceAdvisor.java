@@ -27,10 +27,14 @@ import org.springframework.util.Assert;
 /**
  * Advisor driven by a {@link TransactionAttributeSource}, used to include
  * a {@link TransactionInterceptor} only for methods that are transactional.
+ * <p>
+ * 由{@link TransactionAttributeSource}驱动的Advisor程序，用于仅为事务性方法包括{@link TransactionInterceptor}。
  *
  * <p>Because the AOP framework caches advice calculations, this is normally
  * faster than just letting the TransactionInterceptor run and find out
  * itself that it has no work to do.
+ * <p>
+ * 因为AOP框架缓存advice计算，所以这通常比仅让TransactionInterceptor运行并发现自身没有任何工作快。
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
@@ -60,6 +64,7 @@ public class TransactionAttributeSourceAdvisor extends AbstractPointcutAdvisor {
 
 	/**
 	 * Create a new TransactionAttributeSourceAdvisor.
+	 *
 	 * @param interceptor the transaction interceptor to use for this advisor
 	 */
 	public TransactionAttributeSourceAdvisor(TransactionInterceptor interceptor) {

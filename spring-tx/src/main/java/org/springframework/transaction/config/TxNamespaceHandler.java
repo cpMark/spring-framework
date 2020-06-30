@@ -23,6 +23,8 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 /**
  * {@code NamespaceHandler} allowing for the configuration of
  * declarative transaction management using either XML or using annotations.
+ * <p>
+ * {@code NamespaceHandler}允许使用XML或注释配置声明式事务管理。
  *
  * <p>This namespace handler is the central piece of functionality in the
  * Spring transaction management facilities and offers two approaches
